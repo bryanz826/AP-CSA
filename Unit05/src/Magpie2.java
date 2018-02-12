@@ -38,7 +38,7 @@ public class Magpie2
 		else if(statement.trim().length()==0)
 		{
 			response = "...";
-	}
+		}
 		else if(statement.indexOf("wow") >= 0)
 		{
 			response = "I too, am amused.";
