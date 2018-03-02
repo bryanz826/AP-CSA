@@ -67,7 +67,13 @@ public class Deck {
 	 */
 	public void shuffle() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
-		
+		for(int i = size-1; i > 0; i--) {
+			int randInt = (int) (Math.random() * size);
+			Card temp = cards[i];
+			cards[i] = cards[randInt];
+			cards[randInt] = temp;
+		}
+		size = cards.length;
 	}
 
 	/**
