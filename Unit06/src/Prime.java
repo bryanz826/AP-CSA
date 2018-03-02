@@ -4,7 +4,7 @@
 //Class - APCSA
 //Lab  - 08i
 
-import static java.lang.System.*;
+//import static java.lang.System.*;
 import java.lang.Math;
 
 public class Prime

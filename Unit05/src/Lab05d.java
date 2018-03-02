@@ -57,5 +57,7 @@ public class Lab05d
 		letter = keyboard.next().charAt(0);
 		test.setChar(letter);
 		out.println(test);
+		
+		keyboard.close();
 	}
 }

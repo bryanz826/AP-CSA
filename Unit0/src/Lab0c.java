@@ -4,7 +4,7 @@
 //Class - APCSA
 //Lab  - 0c
 
-import static java.lang.System.*;
+//import static java.lang.System.*;
 import java.util.Scanner;
 
 public class Lab0c
@@ -54,5 +54,7 @@ public class Lab0c
 		System.out.println();
 		System.out.println("short one = " + shortOne );
 		System.out.println("short one = " + shortTwo );
+		
+		keyboard.close();
 	}
 }

@@ -4,7 +4,7 @@
 //Class - APCSA
 //Lab  - 04e
 
-import static java.lang.System.*;
+//import static java.lang.System.*;
 
 public class StringChecker
 {

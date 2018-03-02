@@ -5,7 +5,7 @@
 //Lab  - 10e
 
 import java.util.Scanner;
-import static java.lang.System.*;
+//import static java.lang.System.*;
 
 public class Lab10e
 {
@@ -23,6 +23,6 @@ public class Lab10e
 		} while(response == 'y');
 
 
-
+		keyboard.close();
 	}
 }

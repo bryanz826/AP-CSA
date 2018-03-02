@@ -4,7 +4,7 @@
 //Class - APCSA
 //Lab  - 11j
 
-import static java.lang.System.*;
+//import static java.lang.System.*;
 
 public class Lab11j
 {

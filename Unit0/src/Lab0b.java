@@ -29,7 +29,7 @@ public class Lab0b
 
 		//other types
 		boolean booleanOne = true;
-		String String1 = "asdf";
+		String StringOne = "asdf";
 		
 
 		//output your information here
@@ -50,12 +50,12 @@ public class Lab0b
 		System.out.println("*                               *");
 		System.out.println("*      other integer types      *");
 		System.out.println("*                               *");
-		System.out.println("*16 bit - byteOne = "+byteOne+"\t\t*");
+		System.out.println("*16 bit - charOne = "+charOne+"\t\t*");
 		System.out.println("*                               *");
 		System.out.println("*	   other types		*");
 		System.out.println("*                               *");
-		System.out.println("*booleanOne = "+byteOne+"\t\t*");
-		System.out.println("*stringOne = "+byteOne+"\t\t*");
+		System.out.println("*booleanOne = "+booleanOne+"\t\t*");
+		System.out.println("*stringOne = "+StringOne+"\t\t*");
 		System.out.println("'\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'");
 
 	}

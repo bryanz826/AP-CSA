@@ -4,7 +4,7 @@
 //Class - APCSA
 //Lab  - 09f
 
-import static java.lang.System.*;
+//import static java.lang.System.*;
 
 public class LetterRemover
 {

@@ -4,8 +4,8 @@
 //Class - APCSA
 //Lab  - 05d
 
-import static java.lang.System.*;
-import java.util.Scanner;
+//import static java.lang.System.*;
+//import java.util.Scanner;
 
 public class CharacterAnalyzer
 {

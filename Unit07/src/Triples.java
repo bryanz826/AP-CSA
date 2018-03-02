@@ -4,7 +4,7 @@
 //Class - APCSA
 //Lab  - 11j
 
-import static java.lang.System.*;
+//import static java.lang.System.*;
 
 public class Triples
 {
@@ -27,7 +27,6 @@ public class Triples
 	
 	private int greatestCommonFactor(int a, int b, int c)
 	{
-		int max = 0;
 		while(b > 0) {
 			int temp = b;
 			b = a % b;

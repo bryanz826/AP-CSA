@@ -5,8 +5,8 @@
 //Lab - 03c
 
 import java.util.Scanner;
-import static java.lang.System.*;
-import static java.lang.Math.*;
+//import static java.lang.System.*;
+//import static java.lang.Math.*;
 
 public class Lab03c
 {
@@ -50,5 +50,7 @@ public class Lab03c
 		q.setEquation(a3, b3, c3);
 		q.calcRoots();
 		q.print();
+		
+		scan.close();
    }
 }

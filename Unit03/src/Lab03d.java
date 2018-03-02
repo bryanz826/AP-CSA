@@ -5,8 +5,8 @@
 //Lab - 03d
 
 import java.util.Scanner;
-import static java.lang.System.*;
-import static java.lang.Math.*;
+//import static java.lang.System.*;
+//import static java.lang.Math.*;
 
 public class Lab03d
 {
@@ -55,5 +55,7 @@ public class Lab03d
 		d.setCoordinates(x13, y13, x23, y23);
 		d.calcDistance();
 		d.print();
+		
+		scan.close();
 	}
 }

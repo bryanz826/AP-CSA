@@ -5,7 +5,7 @@
 //Lab  - 10e
 
 import java.util.Scanner;
-import static java.lang.System.*;
+//import static java.lang.System.*;
 
 public class GuessingGame
 {
@@ -45,6 +45,7 @@ public class GuessingGame
 			System.out.println("hi");
 			playGame();
 		}
+		keyboard.close();
 
 	}
 

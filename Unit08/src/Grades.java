@@ -4,9 +4,9 @@
 //Class - APCSA
 //Lab  - 14d
 
-import java.lang.System;
-import java.lang.Math;
-import java.util.Scanner;
+//import java.lang.System;
+//import java.lang.Math;
+//import java.util.Scanner;
 
 public class Grades
 {

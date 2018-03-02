@@ -10,7 +10,9 @@ import java.awt.Canvas;
 
 class Robot extends Canvas
 {
-   public Robot()    //constructor method - sets up the class
+	private static final long serialVersionUID = 1L;
+
+public Robot()    //constructor method - sets up the class
    {
       setSize(800,600);
       setBackground(Color.WHITE);   	
