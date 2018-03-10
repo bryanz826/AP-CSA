@@ -54,7 +54,6 @@ public class Lab0c
 		System.out.println();
 		System.out.println("short one = " + shortOne );
 		System.out.println("short one = " + shortTwo );
-		
 		keyboard.close();
 	}
 }
