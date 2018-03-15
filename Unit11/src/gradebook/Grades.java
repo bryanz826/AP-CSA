@@ -5,14 +5,14 @@ package gradebook;
 //Class - APCSA
 //Lab  - 19b
 
-//import java.util.Arrays;
-import java.util.Scanner;
+import java.util.ArrayList;
+//import java.util.Scanner;
 //import static java.lang.System.*;
 //import static java.util.Arrays.*;
 
 public class Grades
 {
-	private double[] grades;
+	private ArrayList<Double> grades;
 	
 	public Grades()
 	{
@@ -26,18 +26,15 @@ public class Grades
 	
 	public void setGrades(String gradeList)
 	{
-		Scanner scan = new Scanner(gradeList);
-		grades = new double[scan.nextInt()];
-		scan.next();
-		for(int i = 0; i < grades.length; i++) {
-			grades[i] = scan.nextDouble();
-		}
-		scan.close();
+		gradeList = gradeList.substring(4);
+		grades = new ArrayList<Double>();
+		String[] temp = gradeList.split(" ");
+		for(String item : temp) grades.add(Double.parseDouble(item));
 	}
 	
 	public void setGrade(int spot, double grade)
 	{
-		grades[spot] = grade;
+		grades.set(spot, grade);
 	}
 	
 	public double getSum()
@@ -67,7 +64,7 @@ public class Grades
 	
 	public int getNumGrades()
 	{
-		return grades.length;
+		return grades.size();
 	}
 	
 	public String toString()

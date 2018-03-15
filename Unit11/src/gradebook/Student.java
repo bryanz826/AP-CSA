@@ -5,12 +5,12 @@ package gradebook;
 //Class - APCSA
 //Lab  - 19b
 
-import java.util.Arrays;
-import java.util.Scanner;
-import static java.lang.System.*;
-import static java.util.Arrays.*;
+//import java.util.Arrays;
+//import java.util.Scanner;
+//import static java.lang.System.*;
+//import static java.util.Arrays.*;
 
-public class Student
+public class Student implements Comparable<Student>
 {
 	private String myName;
 	private Grades myGrades;
@@ -64,7 +64,7 @@ public class Student
 
 	public double getAverageMinusLow()
 	{
-		return getAverage() + getLowGrade()/(getNumGrades()-1);
+		return (getSum() - getLowGrade())/(getNumGrades()-1);
 	}
 	
 	public double getHighGrade()
@@ -72,7 +72,7 @@ public class Student
 		return myGrades.getHighGrade();		
 	}
 	
-	public duble getLowGrade()
+	public double getLowGrade()
 	{
 		return myGrades.getLowGrade();	
 	}
@@ -80,5 +80,13 @@ public class Student
 	public String toString()
 	{
 		return myName + " = " + myGrades;
-	}	
+	}
+
+	@Override
+	public int compareTo(Student stu) {
+		return Integer.compare((int) this.getAverage(), (int) stu.getAverage());
+	}
+	public boolean equals(Student stu) {
+		return this.getAverage() == stu.getAverage();
+	}
 }
