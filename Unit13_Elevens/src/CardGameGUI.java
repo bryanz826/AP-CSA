@@ -22,6 +22,10 @@ import java.util.ArrayList;
  */
 public class CardGameGUI extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** Height of the game frame. */
 	private static final int DEFAULT_HEIGHT = 302;
 	/** Width of the game frame. */
@@ -156,6 +160,11 @@ public class CardGameGUI extends JFrame implements ActionListener {
 	 */
 	private void initDisplay()	{
 		panel = new JPanel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 			}
@@ -262,9 +271,9 @@ public class CardGameGUI extends JFrame implements ActionListener {
 	 * @return String representation of the image
 	 */
 	private String imageFileName(Card c, boolean isSelected) {
-		String str = "D:\\Program Files\\csa\\readUnits (this is just for my reference)\\Unit13_Elevens-Case-Study\\Activity9  Starter Code\\Activity9  Starter Code\\cards\\";
+		String str = "";
 		if (c == null) {
-			return "D:\\Program Files\\csa\\readUnits (this is just for my reference)\\Unit13_Elevens-Case-Study\\Activity9  Starter Code\\Activity9  Starter Code\\cards\\back1.GIF";
+			return "back1.GIF";
 		}
 		str += c.rank() + c.suit();
 		if (isSelected) {
@@ -279,6 +288,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
 	 * or the "Restart" button).
 	 * @param e the button click action event
 	 */
+	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(replaceButton)) {
 			// Gather all the selected cards.

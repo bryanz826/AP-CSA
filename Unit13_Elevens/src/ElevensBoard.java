@@ -1,5 +1,5 @@
 import java.util.List;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 /**
  * The ElevensBoard class represents the board in a game of Elevens.
@@ -32,7 +32,7 @@ public class ElevensBoard extends Board {
 	/**
 	 * Flag used to control debugging print statements.
 	 */
-	private static final boolean I_AM_DEBUGGING = false;
+//	private static final boolean I_AM_DEBUGGING = false;
 
 
 	/**
@@ -54,7 +54,9 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean isLegal(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-		return false;
+		if (selectedCards.size()==2) return containsPairSum11(selectedCards);	
+		else if (selectedCards.size()==3) return containsJQK(selectedCards);
+		else return false;
 	}
 
 	/**
@@ -68,37 +70,42 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean anotherPlayIsPossible() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-		return false;
+		return containsPairSum11(cardIndexes()) || containsJQK(cardIndexes());
 	}
 
 	/**
 	 * Check for an 11-pair in the selected cards.
 	 * @param selectedCards selects a subset of this board.  It is list
-	 *                      of indexes into this board that are searched
+	 *                      of ies into this board that are searched
 	 *                      to find an 11-pair.
 	 * @return true if the board entries in selectedCards
 	 *              contain an 11-pair; false otherwise.
 	 */
 	private boolean containsPairSum11(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-		int sum = 0;
-		for(Integer i : selectedCards) {
-			sum+=i;
-		}
-		return sum == 11;
+		for (int i = 0; i < selectedCards.size(); i++)
+			for (int j = i+1; j < selectedCards.size(); j++)
+				if (cardAt(selectedCards.get(i)).pointValue()+cardAt(selectedCards.get(j)).pointValue()==11)
+					return true;
+		return false;
 	}
 
 	/**
 	 * Check for a JQK in the selected cards.
 	 * @param selectedCards selects a subset of this board.  It is list
-	 *                      of indexes into this board that are searched
+	 *                      of ies into this board that are searched
 	 *                      to find a JQK group.
 	 * @return true if the board entries in selectedCards
 	 *              include a jack, a queen, and a king; false otherwise.
 	 */
 	private boolean containsJQK(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-		
-		return false;
+		boolean jack = false, queen = false, king = false;
+		for (int i : selectedCards) {
+			if (cardAt(i).rank().equals("jack")) jack = true;
+			else if (cardAt(i).rank().equals("queen")) queen = true;
+			else if (cardAt(i).rank().equals("king")) king = true;
+		}
+		return jack && queen && king;
 	}
 }
