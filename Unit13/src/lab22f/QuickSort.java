@@ -26,9 +26,9 @@ public class QuickSort
 	{
 		if(low < high) {
 			int split = partition(list, low, high);
+			out.println("pass " + passCount++ + " " + Arrays.toString(list));
 			quickSort(list, low, split);
 			quickSort(list, split+1, high);
-			out.println("pass " + passCount++ + " " + Arrays.toString(list));
 		}
 	}
 
@@ -36,7 +36,7 @@ public class QuickSort
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	private static int partition(Comparable[] list, int low, int high)
 	{
-		Comparable<?> pivot = list[low];
+		Comparable pivot = list[low];
 		int bot = low-1;
 		int top = high+1;
 		while(bot < top) {
@@ -44,7 +44,7 @@ public class QuickSort
 			while(list[++bot].compareTo(pivot) < 0);
 			if(bot>=top)
 				return top;
-			Comparable<?> temp = list[bot];
+			Comparable temp = list[bot];
 			list[bot] = list[top];
 			list[top] = temp;
 		} return 0;

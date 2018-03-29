@@ -37,7 +37,7 @@ public class FancyWord
 		}
 		
 		String output="";
-		for(char[] row : mat) { for(char num : row) output+= num + " "; output+= "\n"; }
+		for(char[] row : mat) { for(char num : row) output+= num; output+= "\n"; }
 		return output+"\n\n";
 	}
 }

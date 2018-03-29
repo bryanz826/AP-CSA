@@ -28,10 +28,10 @@ public class Lab18e
 		//sort
 		for(int i = 0; i < list.length; i++) {
 			for(int j = 0; j < list.length-1; j++) {
-				if(list[j].compareTo(list[j+1]) == -1) {
-					Word2 t = list[j];
-					list[j] = list[j+1];
-					list[j+1] = t;
+				if(list[j].compareTo(list[j+1]) == 1) {
+					Word2 t = list[j+1];
+					list[j+1] = list[j];
+					list[j] = t;
 				}
 			}
 		}

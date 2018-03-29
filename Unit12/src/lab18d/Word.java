@@ -16,16 +16,15 @@ public class Word implements Comparable<Word>
 		word = s;
 	}
 	
-	public int compareTo( Word rhs )
+	public int compareTo( Word other )
 	{
-		Word other = (Word)rhs;
-		if(word.length() < other.toString().length()) return 1;
-		if(word.length() > other.toString().length()) return -1;
+		if(this.word.length() < other.word.length()) return 1;
+		if(this.word.length() > other.word.length()) return -1;
 		for (int i = 0; i < word.length(); i++){
-			if ((int)word.charAt(i) < (int)other.toString().charAt(i)){
+			if ((int)this.word.charAt(i) < (int)other.word.charAt(i)){
 				return 1;
 			}
-			else if ((int)word.charAt(i) > (int)other.toString().charAt(i)){
+			else if ((int)this.word.charAt(i) > (int)other.word.charAt(i)){
 				return -1;
 			}
 		}

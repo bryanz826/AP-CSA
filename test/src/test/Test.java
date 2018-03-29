@@ -7,8 +7,17 @@ public class Test {
 	
 	public void run(int x)
 	{
-		if(x<5) run(x+1);
-		out.println(x);
+		if(x>=1) {
+			out.print(x);
+			run(x-1);
+		}
+	}
+	
+	public int noob(int x, int y) {
+		if(y==2)
+			return x;
+		else
+			return noob(x, y-1) + x;
 	}
 	
 	public String recur(String s) {    
@@ -21,6 +30,8 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Test t = new Test();
-		out.println(t.recur("abc"));
+		t.run(5);
+		out.println();
+		out.println(t.noob(4,6));
 	}
 }

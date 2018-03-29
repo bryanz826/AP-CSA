@@ -31,14 +31,14 @@ public class Word2 implements Comparable<Word2>
 	public int compareTo(Word2 rhs)
 	{
 		Word2 other = (Word2)rhs;
-		if(numVowels() < other.numVowels()) return 1;
-		if(numVowels() > other.numVowels()) return -1;
+		if(numVowels() < other.numVowels()) return -1;
+		if(numVowels() > other.numVowels()) return 1;
 		for (int i = 0; i < word.length(); i++){
 			if ((int)word.charAt(i) < (int)other.toString().charAt(i)){
-				return 1;
+				return -1;
 			}
 			else if ((int)word.charAt(i) > (int)other.toString().charAt(i)){
-				return -1;
+				return 1;
 			}
 		}
 		return 0;
