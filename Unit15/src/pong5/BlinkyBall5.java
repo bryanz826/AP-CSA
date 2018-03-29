@@ -7,7 +7,7 @@ package pong5;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Random;
+//import java.util.Random;
 
 import pong5.Ball5;
 
@@ -22,31 +22,24 @@ public class BlinkyBall5 extends Ball5
 
    public BlinkyBall5(int x, int y)
    {
-
-
-
+	    super(x, y);
    }
 
    public BlinkyBall5(int x, int y, int wid, int ht)
    {
-
-
-
+	   	super(x, y, wid, ht);
    }
 
    public BlinkyBall5(int x, int y, int wid, int ht, int xSpd, int ySpd)
    {
-
-
-
+	    super(x, y, wid, ht);
+		setXSpeed(xSpd);
+		setYSpeed(ySpd);
    }
 
    public BlinkyBall5(int x, int y, int wid, int ht, Color col, int xSpd, int ySpd)
    {
-
-
-
-
+	   super(x, y, wid, ht, col, xSpd, ySpd);
    }
 
    public Color randomColor()
@@ -59,6 +52,8 @@ public class BlinkyBall5 extends Ball5
 
    public void moveAndDraw(Graphics window)
    {
-	   
+	   draw(window, Color.WHITE);
+	   setPos(getX()+getXSpeed(), getY()+getYSpeed());
+	   draw(window, randomColor());
    }
 }

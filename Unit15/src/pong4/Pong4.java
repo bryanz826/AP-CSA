@@ -35,6 +35,7 @@ public class Pong4 extends Canvas implements KeyListener, Runnable
 	private int leftScore;
 	private int rightScore;	
 	
+	//starting position of ball
 	private static final int BALL_Xi = 380;
 	private static final int BALL_Yi = 265;
 	

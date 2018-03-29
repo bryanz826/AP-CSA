@@ -56,11 +56,14 @@ public class Pong5 extends Canvas implements KeyListener, Runnable
 	private Paddle5 rightPaddle;
 	private Wall5 wall;
 	
+	private int timer = 0;
+	
 	private boolean[] keys;
 	private BufferedImage back;
 	private int leftScore;
 	private int rightScore;	
 
+	//starting position of ball
 	private static final int BALL_Xi = 380;
 	private static final int BALL_Yi = 265;
 	
@@ -83,10 +86,19 @@ public class Pong5 extends Canvas implements KeyListener, Runnable
 		addKeyListener(this);		//starts the key thread to log key strokes
 	}
 	
+	//REFACTORING METHODS
 	public void createBall() {
 		if(play == 'a') ball = new SpeedUpBall5(BALL_Xi, BALL_Yi, 10, 10, Color.BLUE, 1, 1);
 		else if(play == 'c') ball = new BlinkyBall5(BALL_Xi, BALL_Yi, 10, 10, Color.BLUE, 3, 1);
 		else if(play == 'r') ball = new Ball5(BALL_Xi, BALL_Yi, 10, 10, Color.BLUE, 3, 1);
+	}
+	
+	public void subIncSpeed() {
+		timer++;
+		if(timer == 4) {
+			((SpeedUpBall5)ball).incSpeed();
+			timer = 0;
+		}
 	}
 	
 	public void update(Graphics window){
@@ -188,10 +200,7 @@ public class Pong5 extends Canvas implements KeyListener, Runnable
 		//IF BALL COLLIDE WITH TOP AND BOTTOM WALLS
 		if(ball.didCollideTop(wall) || ball.didCollideBottom(wall)) {
 			ball.setYSpeed(-ball.getYSpeed());
-			if(play == 'a') {
-				((SpeedUpBall5) ball).incSpeed();
-				System.out.println("hi");
-			}
+			if(play == 'a') subIncSpeed();
 		}
 
 		//IF BALL COLLIDE LEFT PADDLE
@@ -207,7 +216,7 @@ public class Pong5 extends Canvas implements KeyListener, Runnable
 			//make ball bounce
 			else
 				ball.setXSpeed(-ball.getXSpeed());
-			if(play == 'a') ((SpeedUpBall5) ball).incSpeed();
+			if(play == 'a') subIncSpeed();
 		}
 			
 		//IF BALL COLLIDE RIGHT PADDLE
@@ -223,7 +232,7 @@ public class Pong5 extends Canvas implements KeyListener, Runnable
 			//make ball bounce
 			else
 				ball.setXSpeed(-ball.getXSpeed());
-			if(play == 'a') ((SpeedUpBall5) ball).incSpeed();
+			if(play == 'a') subIncSpeed();
 		}
 			
 		//MOVEMENT FOR PADDLES
@@ -241,6 +250,8 @@ public class Pong5 extends Canvas implements KeyListener, Runnable
 		if(keys[3] == true) {//right player
 			rightPaddle.moveDownAndDraw(graphToBack);
 		}
+		
+		System.out.println(ball.getXSpeed() +" "+ ball.getYSpeed());
 		
 		twoDGraph.drawImage(back, null, 0, 0);
    	}

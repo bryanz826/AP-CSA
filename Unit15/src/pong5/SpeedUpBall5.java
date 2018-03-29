@@ -61,7 +61,16 @@ public class SpeedUpBall5 extends Ball5 implements Collidable5
 	//METHODs
 	public void incSpeed()
 	{
-		xSpeed++;
-		ySpeed++;
+		if(getXSpeed() < 0) {
+			setXSpeed(getXSpeed() - 1);
+		} else {
+			setXSpeed(getXSpeed() + 1);
+		}
+		
+		if(getYSpeed() < 0) {
+			setYSpeed(getYSpeed() - 1);
+		} else {
+			setYSpeed(getYSpeed() + 1);
+		}
 	}
 }
