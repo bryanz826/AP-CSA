@@ -1,7 +1,5 @@
 package lab15d;
 
-import java.util.Arrays;
-
 //© A+ Computer Science  -  www.apluscompsci.com
 //Name - Bryan Zhang
 //Date - 2018/3/16

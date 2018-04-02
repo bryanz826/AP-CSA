@@ -6,7 +6,7 @@ package lab16d;
 //Lab  - 16d
 
 import java.io.File;
-//import java.io.IOException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 //import java.util.Arrays;
@@ -31,43 +31,48 @@ public class MadLib
 
 	public void loadNouns()
 	{
+		Scanner fileNouns = null;
 		try{
-			Scanner fileNouns = new Scanner(new File("D:\\Program Files\\csa\\readUnits (this is just for my reference)\\Unit10\\Unit10-2016\\Unit10-Assignments\\Lab16d\\nouns.dat"));
+			fileNouns = new Scanner(new File("src\\lab16d\\nouns.dat"));
 			
 			int i = 0;
 			while(fileNouns.hasNext()) nouns.add(i++, fileNouns.next());
-			fileNouns.close();
 		}
-		catch(Exception e){
-			out.println("Houston we have a problem!");
-		}	
+		catch(IOException e) {
+			out.println("Houston we have a problem");
+		}	finally {
+			if(fileNouns != null) fileNouns.close();
+		}
 	}
 	
 	public void loadVerbs()
 	{
-		try{
-			Scanner fileVerbs = new Scanner(new File("D:\\Program Files\\csa\\readUnits (this is just for my reference)\\Unit10\\Unit10-2016\\Unit10-Assignments\\Lab16d\\verbs.dat"));
+		Scanner fileVerbs = null;
+		try {
+			fileVerbs = new Scanner(new File("src\\lab16d\\verbs.dat"));
 			
 			int i = 0;
 			while(fileVerbs.hasNext()) verbs.add(i++, fileVerbs.next());
-			fileVerbs.close();
-		}
-		catch(Exception e){
+		} catch(IOException e) {
 			out.println("Houston we have a problem!");
+		} finally {
+			if(fileVerbs != null) fileVerbs.close();
 		}
 	}
 
 	public void loadAdjs()
 	{
+		Scanner fileAdjs = null;
 		try{
-			Scanner fileAdjs = new Scanner(new File("D:\\Program Files\\csa\\readUnits (this is just for my reference)\\Unit10\\Unit10-2016\\Unit10-Assignments\\Lab16d\\adjectives.dat"));
+			fileAdjs = new Scanner(new File("src\\lab16d\\adjectives.dat"));
 			
 			int i = 0;
 			while(fileAdjs.hasNext()) adjs.add(i++, fileAdjs.next());
-			fileAdjs.close();
 		}
-		catch(Exception e){
+		catch(IOException e) {
 			out.println("Houston we have a problem!");
+		} finally {
+			if(fileAdjs != null) fileAdjs.close();
 		}
 	}
 
@@ -93,14 +98,16 @@ public class MadLib
 	{
 		String oldStory = "";
 		String newStory = "";
+		Scanner fileStory = null;
 		try{
-			Scanner fileStory = new Scanner(new File("D:\\Program Files\\csa\\readUnits (this is just for my reference)\\Unit10\\Unit10-2016\\Unit10-Assignments\\Lab16d\\story.dat"));
+			fileStory = new Scanner(new File("src\\lab16d\\story.dat"));
 			while(fileStory.hasNext()) oldStory+=fileStory.next()+" ";
-			fileStory.close();
-		}
-		catch(Exception e){
+		} catch(IOException e) {
 			out.println("Houston we have a problem!");
+		} finally {
+			if(fileStory != null) fileStory.close();
 		}
+		
 		String[] splitStory = oldStory.split(" ");
 		for(int i = 0; i < splitStory.length; i++) {
 			String c = splitStory[i];

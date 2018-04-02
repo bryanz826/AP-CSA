@@ -14,15 +14,21 @@ public class Lab24b
 {
 	public static void main( String args[] ) throws IOException
 	{
-		Scanner file = new Scanner(new File ("D:\\Program Files\\csa\\readUnits (this is just for my reference)\\Unit14\\Unit14_2016\\Unit14-Assignments\\lab24b.dat"));
-		int size = file.nextInt();
-		file.nextLine();
-		for(int i = 0; i<size; i++)
-		{
-			String word = file.next();
-			FancyWord test = new FancyWord(word);
-			out.println(test);
+		Scanner file = null;
+		try {
+			file = new Scanner(new File ("src\\lab24b\\lab24b.dat"));
+			int size = file.nextInt();
+			file.nextLine();
+			for(int i = 0; i<size; i++)
+			{
+				String word = file.next();
+				FancyWord test = new FancyWord(word);
+				out.println(test);
+			}
+		} catch(IOException e) {
+			out.println(e);
+		} finally {
+			if(file != null) file.close();
 		}
-		file.close();
 	}
 }
