@@ -53,7 +53,6 @@ public class Paddle3 extends Block3
 
 	public void moveUpAndDraw(Graphics window)
 	{
-		System.out.println("hssi");
 		Color temp = getColor();
 		draw(window, Color.WHITE);
 		setY(getY()-speed);
