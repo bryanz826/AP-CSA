@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 /**
  * This class contains class (static) methods that will help you test the
  * Picture class methods. Uncomment the methods and the code in the main to
@@ -68,8 +70,8 @@ public class PictureTester {
 //		testCopy();
 //		testEdgeDetection();
 //		testEdgeDetection2();
-		testChromakey();
-//		testEncodeAndDecode();s
+//		testChromakey();
+		testEncodeAndDecode();
 //		testGetCountRedOverValue(250);
 //		testSetRedToHalfValueInTopHalf();
 //		testClearBlueOverValue(200);
@@ -154,18 +156,21 @@ public class PictureTester {
 	}
 
 	public static void testChromakey() {
-		Picture beach = new Picture("beach.jpg");
-		beach.explore();
-		beach.chromakey();
-		beach.explore();		
+		Picture cat = new Picture("caterpillar.jpg");
+		cat.explore();
+		cat.chromakey(new Picture("koala.jpg"), new Color(255, 255 ,255), 100);
+		cat.explore();		
 	}
-//	
-//	public static void testEncodeAndDecode() {
-//		Picture beach = new Picture("beach.jpg");
-//		beach.explore();
-//		beach.encodeAndDecode();
-//		beach.explore();		
-//	}
+	
+	public static void testEncodeAndDecode() {
+		Picture beach = new Picture("beach.jpg");
+		beach.encodeAndDecode("seagull.jpg");
+		
+//		after encoding and decoding 'seagull.jpg', beach's image 'beach.jpg' is
+//		set to newly decoded seagull image to show that the decoding works
+		
+		beach.explore();
+	}
 
 	public static void testGetCountRedOverValue(int n) {
 		Picture beach = new Picture("beach.jpg");

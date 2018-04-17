@@ -303,6 +303,10 @@ public class SimplePicture implements DigitalPicture {
 	public Image getImage() {
 		return bufferedImage;
 	}
+	
+	public String getImageName() {
+		return bufferedImage.toString();
+	}
 
 	/**
 	 * Method to return the pixel value as an int for the given x and y location
@@ -771,6 +775,10 @@ public class SimplePicture implements DigitalPicture {
 	public String toString() {
 		String output = "Simple Picture, filename " + fileName + " height " + getHeight() + " width " + getWidth();
 		return output;
+	}
+	
+	public void setBufferedImage(BufferedImage bufferedImage) {
+		this.bufferedImage = bufferedImage;
 	}
 
 } // end of SimplePicture class

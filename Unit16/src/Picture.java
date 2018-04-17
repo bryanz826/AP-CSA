@@ -1,10 +1,12 @@
-import java.awt.*;
-import java.awt.font.*;
-import java.awt.geom.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.text.*;
-import java.util.*;
-import java.util.List; // resolves problem with java.awt.List and java.util.List
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Base64;
+
+import javax.imageio.ImageIO;
 
 /**
  * A class that represents a picture. This class inherits from SimplePicture and
@@ -348,9 +350,39 @@ public class Picture extends SimplePicture {
 		}
 	}
 
-	public void chromakey() {
-		// TODO Auto-generated method stub
+	public void chromakey(Picture newPic, Color color, int allowance) {
+		Pixel[][] pixels = this.getPixels2D();
+		Pixel[][] newPixels = newPic.getPixels2D();
+		for (int row = 0; row < pixels.length; row++) {
+			for (int col = 0; col < pixels[0].length; col++) {
+				if ((Math.abs(pixels[row][col].getRed() - color.getRed()) < allowance)
+						&& (Math.abs(pixels[row][col].getGreen() - color.getGreen()) < allowance)
+						&& (Math.abs(pixels[row][col].getBlue() - color.getBlue()) < allowance)) {
+					pixels[row][col].setColor(newPixels[row][col].getColor());
+				}
+			}
+		}
+	}
+
+	public void encodeAndDecode(String imagePath) {
+		String base64Image = "";
+		File file = new File("./images/" + imagePath);
+		try (FileInputStream imageInFile = new FileInputStream(file)) {
+			byte imageData[] = new byte[(int) file.length()];
+			imageInFile.read(imageData);
+			base64Image = Base64.getEncoder().encodeToString(imageData);
+			System.out.println(base64Image);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+		try {
+			byte[] imageByteArray = Base64.getDecoder().decode(base64Image);
+			BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageByteArray));
+			setBufferedImage(img);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public int getCountRedOverValue(int n) {
@@ -397,5 +429,4 @@ public class Picture extends SimplePicture {
 		return String.format("(%s, %s, %s)", totalRed / pixels.length, totalGreen / pixels.length,
 				totalBlue / pixels.length);
 	}
-
 } // this is the end of class Picture, put all new methods before this
