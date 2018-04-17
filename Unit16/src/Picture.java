@@ -118,7 +118,6 @@ public class Picture extends SimplePicture {
 		int mirrorPoint = 276;
 		Pixel leftPixel = null;
 		Pixel rightPixel = null;
-		int count = 0;
 		Pixel[][] pixels = this.getPixels2D();
 
 		// loop through the rows
@@ -252,7 +251,6 @@ public class Picture extends SimplePicture {
 	}
 
 	public void grayscale() {
-
 		Pixel[][] pixels = this.getPixels2D();
 		for (Pixel[] rowArray : pixels) {
 			for (Pixel pixelObj : rowArray) {
@@ -265,18 +263,56 @@ public class Picture extends SimplePicture {
 	}
 
 	public void fixUnderwater() {
-  		Pixel[][] pixels = this.getPixels2D();
-	    for (Pixel[] rowArray : pixels)
-	    {
-	    	for (Pixel pixelObj : rowArray)
-	    	{
-	    		if(pixelObj.getRed() > 18) {
-	    			pixelObj.setRed(0);
-	    			pixelObj.setGreen(pixelObj.getGreen()/2);
-	    			pixelObj.setBlue(pixelObj.getBlue()/2);
-	    		}
-	    	}
-	    }	 
-  	}
+		Pixel[][] pixels = this.getPixels2D();
+		for (Pixel[] rowArray : pixels) {
+			for (Pixel pixelObj : rowArray) {
+				if (pixelObj.getRed() > 18) {
+					pixelObj.setRed(0);
+					pixelObj.setGreen(pixelObj.getGreen() / 2);
+					pixelObj.setBlue(pixelObj.getBlue() / 2);
+				}
+			}
+		}
+	}
+
+	public void mirrorArms() {
+		int mirror = 220;
+		Pixel origUpperPixel = null;
+		Pixel newLowerPixel = null;
+		Pixel[][] pixels = this.getPixels2D();
+
+		// loop through the rows
+		for (int row = 159; row < 194; row++) {
+			// loop from 13 to just before the mirror point
+			for (int col = 104; col < 170; col++) {
+				origUpperPixel = pixels[row][col];
+				newLowerPixel = pixels[mirror - row + mirror][col];
+				newLowerPixel.setColor(origUpperPixel.getColor());
+			}
+			
+			for (int col = 239; col < 295; col++) {
+				origUpperPixel = pixels[row][col];
+				newLowerPixel = pixels[mirror - row + mirror][col];
+				newLowerPixel.setColor(origUpperPixel.getColor());
+			}
+		}
+	}
+
+	public void mirrorGull() {
+		int mirror = 350;
+		Pixel origLeftPixel = null;
+		Pixel newRightPixel = null;
+		Pixel[][] pixels = this.getPixels2D();
+
+		// loop through the rows
+		for (int row = 230; row < 327; row++) {
+			// loop from 13 to just before the mirror point
+			for (int col = 230; col < 348; col++) {
+				origLeftPixel = pixels[row][col];
+				newRightPixel = pixels[row][mirror - col + mirror];
+				newRightPixel.setColor(origLeftPixel.getColor());
+			}
+		}
+	}
 
 } // this } is the end of class Picture, put all new methods before this
