@@ -67,15 +67,15 @@ public class PictureTester {
 //		testCollage();
 //		testCopy();
 //		testEdgeDetection();
-		testEdgeDetection2();
-//		testChromakey();
-//		testEncodeAndDecode();
+//		testEdgeDetection2();
+		testChromakey();
+//		testEncodeAndDecode();s
 //		testGetCountRedOverValue(250);
 //		testSetRedToHalfValueInTopHalf();
 //		testClearBlueOverValue(200);
 //		testGetAverageForColumn(0);
 	}
-	
+
 	public static void testKeepOnlyBlue() {
 		Picture beach = new Picture("beach.jpg");
 		beach.explore();
@@ -124,7 +124,7 @@ public class PictureTester {
 		snowman.mirrorArms();
 		snowman.explore();
 	}
-	
+
 	public static void testMirrorGull() {
 		Picture seagull = new Picture("seagull.jpg");
 		seagull.explore();
@@ -138,18 +138,56 @@ public class PictureTester {
 		beach.mirrorDiagonal();
 		beach.explore();
 	}
-	
+
 	public static void testCopy() {
 		Picture beach = new Picture("beach.jpg");
 		beach.explore();
 		beach.copy(beach, 0, 320);
-		beach.explore();		
+		beach.explore();
 	}
-	
+
 	public static void testEdgeDetection2() {
 		Picture swan = new Picture("swan.jpg");
 		swan.explore();
 		swan.edgeDetection2(10);
 		swan.explore();
+	}
+
+	public static void testChromakey() {
+		Picture beach = new Picture("beach.jpg");
+		beach.explore();
+		beach.chromakey();
+		beach.explore();		
+	}
+//	
+//	public static void testEncodeAndDecode() {
+//		Picture beach = new Picture("beach.jpg");
+//		beach.explore();
+//		beach.encodeAndDecode();
+//		beach.explore();		
+//	}
+
+	public static void testGetCountRedOverValue(int n) {
+		Picture beach = new Picture("beach.jpg");
+		System.out.println(beach.getCountRedOverValue(n));
+	}
+
+	public static void testSetRedToHalfValueInTopHalf() {
+		Picture beach = new Picture("beach.jpg");
+		beach.explore();
+		beach.setRedToHalfValueInTopHalf();
+		beach.explore();
+	}
+
+	public static void testClearBlueOverValue(int n) {
+		Picture beach = new Picture("beach.jpg");
+		beach.explore();
+		beach.clearBlueOverValue(n);
+		beach.explore();
+	}
+
+	public static void testGetAverageForColumn(int n) {
+		Picture beach = new Picture("beach.jpg");
+		System.out.println(beach.getAverageForColumn(n));
 	}
 }

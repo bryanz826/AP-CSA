@@ -181,16 +181,13 @@ public class Picture extends SimplePicture {
 	 * @param edgeDist
 	 *            the distance for finding edges
 	 */
-	public void edgeDetection(int edgeDist)
-	{
+	public void edgeDetection(int edgeDist) {
 		Pixel leftPixel = null;
 		Pixel rightPixel = null;
 		Pixel[][] pixels = this.getPixels2D();
-		
-		for (int row = 0; row < pixels.length - 1; row++)
-		{
-			for (int col = 0; col < pixels[0].length - 1; col++)
-			{
+
+		for (int row = 0; row < pixels.length - 1; row++) {
+			for (int col = 0; col < pixels[0].length - 1; col++) {
 				leftPixel = pixels[row][col];
 				rightPixel = pixels[row][col + 1];
 				if (leftPixel.colorDistance(rightPixel.getColor()) > edgeDist)
@@ -328,30 +325,77 @@ public class Picture extends SimplePicture {
 			}
 		}
 	}
-	
-	public void edgeDetection2(int edgeDist)
-	{
+
+	public void edgeDetection2(int edgeDist) {
 		Pixel leftPixel = null;
 		Pixel rightPixel = null;
 		Pixel topPixel = null;
 		Pixel bottomPixel = null;
 		Pixel[][] pixels = this.getPixels2D();
-		
-		for (int row = 0; row < pixels.length - 1; row++)
-		{
-			for (int col = 0; col < pixels[0].length - 1; col++)
-			{
+
+		for (int row = 0; row < pixels.length - 1; row++) {
+			for (int col = 0; col < pixels[0].length - 1; col++) {
 				leftPixel = pixels[row][col];
 				rightPixel = pixels[row][col + 1];
 				topPixel = pixels[row][col];
 				bottomPixel = pixels[row + 1][col];
-				if (leftPixel.colorDistance(rightPixel.getColor()) > edgeDist ||
-						topPixel.colorDistance(bottomPixel.getColor()) > edgeDist)
+				if (leftPixel.colorDistance(rightPixel.getColor()) > edgeDist
+						|| topPixel.colorDistance(bottomPixel.getColor()) > edgeDist)
 					leftPixel.setColor(Color.BLACK);
 				else
 					leftPixel.setColor(Color.WHITE);
 			}
 		}
+	}
+
+	public void chromakey() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getCountRedOverValue(int n) {
+		Pixel[][] pixels = this.getPixels2D();
+		int count = 0;
+		for (Pixel[] rowArray : pixels) {
+			for (Pixel pixelObj : rowArray) {
+				if (pixelObj.getRed() > n)
+					count++;
+			}
+		}
+		return count;
+	}
+
+	public void setRedToHalfValueInTopHalf() {
+		Pixel[][] pixels = this.getPixels2D();
+		for (int row = 0; row < pixels.length / 2; row++) {
+			for (int col = 0; col < pixels[0].length; col++) {
+				pixels[row][col].setRed(pixels[row][col].getRed() / 2);
+			}
+		}
+	}
+
+	public void clearBlueOverValue(int n) {
+		Pixel[][] pixels = this.getPixels2D();
+		for (Pixel[] rowArray : pixels) {
+			for (Pixel pixelObj : rowArray) {
+				if (pixelObj.getBlue() > n)
+					pixelObj.setBlue(0);
+			}
+		}
+	}
+
+	public String getAverageForColumn(int n) {
+		Pixel[][] pixels = this.getPixels2D();
+		int totalRed = 0;
+		int totalBlue = 0;
+		int totalGreen = 0;
+		for (int i = 0; i < pixels.length; i++) {
+			totalRed += pixels[i][n].getRed();
+			totalGreen += pixels[i][n].getGreen();
+			totalBlue += pixels[i][n].getBlue();
+		}
+		return String.format("(%s, %s, %s)", totalRed / pixels.length, totalGreen / pixels.length,
+				totalBlue / pixels.length);
 	}
 
 } // this is the end of class Picture, put all new methods before this
