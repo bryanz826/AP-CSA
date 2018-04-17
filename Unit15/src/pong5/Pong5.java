@@ -250,9 +250,7 @@ public class Pong5 extends Canvas implements KeyListener, Runnable
 		if(keys[3] == true) {//right player
 			rightPaddle.moveDownAndDraw(graphToBack);
 		}
-		
-		System.out.println(ball.getXSpeed() +" "+ ball.getYSpeed());
-		
+	
 		twoDGraph.drawImage(back, null, 0, 0);
    	}
   	

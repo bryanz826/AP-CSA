@@ -1,8 +1,9 @@
+import java.io.File;
+import java.net.URL;
+import java.net.URLDecoder;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import java.util.Properties;
-import java.io.*;
-import java.net.*;
 
 /**
  * A class to make working with a file chooser easier for students. It uses a
@@ -24,8 +25,6 @@ public class FileChooser {
 	public static String getMediaPath(String fileName) {
 		String path = null;
 		String directory = getMediaDirectory();
-		boolean done = true;
-
 		// get the full path
 		path = directory + fileName;
 		return path;
@@ -100,12 +99,12 @@ public class FileChooser {
 	 */
 	public static String getMediaDirectory() {
 		String directory = null;
-		boolean done = false;
 		File dirFile = null;
 
 		// try to find the images directory
 		try {
 			// get the URL for where we loaded this class
+			@SuppressWarnings("rawtypes")
 			Class currClass = Class.forName("FileChooser");
 			URL classURL = currClass.getResource("FileChooser.class");
 			URL fileURL = new URL(classURL, "../images/");

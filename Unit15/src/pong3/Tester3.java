@@ -6,7 +6,6 @@ package pong3;
 //Lab  - pong3
 
 import javax.swing.JFrame;
-import java.awt.Component;
 
 public class Tester3 extends JFrame
 {
@@ -20,7 +19,7 @@ public class Tester3 extends JFrame
 		setSize(WIDTH,HEIGHT);
 		
 		PaddleTestTwo padTest = new PaddleTestTwo();
-		((Component)padTest).setFocusable(true);
+		padTest.setFocusable(true);
 		getContentPane().add(padTest);
 		
 		setVisible(true);

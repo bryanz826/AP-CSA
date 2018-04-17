@@ -86,7 +86,7 @@ public class PictureExplorer implements MouseMotionListener, ActionListener, Mou
   private DigitalPicture picture;
   
   /** The image icon used to display the picture */
-  private ImageIcon scrollImageIcon;
+//  private ImageIcon scrollImageIcon;
   
   /** The image display */
   private ImageDisplay imageDisplay;
@@ -441,12 +441,12 @@ public class PictureExplorer implements MouseMotionListener, ActionListener, Mou
       // get the rectangle that defines the current view
       JViewport viewport = scrollPane.getViewport();
       Rectangle rect = viewport.getViewRect();
-      int rectMinX = (int) rect.getX();
+//      int rectMinX = (int) rect.getX();
       int rectWidth = (int) rect.getWidth();
-      int rectMaxX = rectMinX + rectWidth - 1;
-      int rectMinY = (int) rect.getY();
+//      int rectMaxX = rectMinX + rectWidth - 1;
+//      int rectMinY = (int) rect.getY();
       int rectHeight = (int) rect.getHeight();
-      int rectMaxY = rectMinY + rectHeight - 1;
+//      int rectMaxY = rectMinY + rectHeight - 1;
       
       // get the maximum possible x and y index
       int macolIndexX = (int) (picture.getWidth() * zoomFactor) - rectWidth - 1;
