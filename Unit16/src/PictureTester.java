@@ -61,9 +61,9 @@ public class PictureTester {
 //		testMirrorVertical();
 //		testMirrorTemple();
 //		testMirrorArms();
-		testMirrorGull();
+//		testMirrorGull();
 //		testMirrorDiagonal();
-//		testCollage();
+		testCollage();
 //		testCopy();
 //		testEdgeDetection();
 //		testEdgeDetection2();
@@ -118,18 +118,24 @@ public class PictureTester {
 	}
 
 	public static void testMirrorArms() {
-		Picture water = new Picture("snowman.jpg");
-		water.explore();
-		water.mirrorArms();
-		water.explore();
+		Picture snowman = new Picture("snowman.jpg");
+		snowman.explore();
+		snowman.mirrorArms();
+		snowman.explore();
 	}
 	
 	public static void testMirrorGull() {
-		Picture water = new Picture("seagull.jpg");
-		water.explore();
-		water.mirrorGull();
-		water.explore();
+		Picture seagull = new Picture("seagull.jpg");
+		seagull.explore();
+		seagull.mirrorGull();
+		seagull.explore();
 	}
-	
+
+	private static void testMirrorDiagonal() {
+		Picture beach = new Picture("beach.jpg");
+		beach.explore();
+		beach.mirrorDiagonal();
+		beach.explore();
+	}
 
 }

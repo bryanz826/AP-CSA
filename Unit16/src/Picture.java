@@ -281,15 +281,13 @@ public class Picture extends SimplePicture {
 		Pixel newLowerPixel = null;
 		Pixel[][] pixels = this.getPixels2D();
 
-		// loop through the rows
 		for (int row = 159; row < 194; row++) {
-			// loop from 13 to just before the mirror point
 			for (int col = 104; col < 170; col++) {
 				origUpperPixel = pixels[row][col];
 				newLowerPixel = pixels[mirror - row + mirror][col];
 				newLowerPixel.setColor(origUpperPixel.getColor());
 			}
-			
+
 			for (int col = 239; col < 295; col++) {
 				origUpperPixel = pixels[row][col];
 				newLowerPixel = pixels[mirror - row + mirror][col];
@@ -304,9 +302,7 @@ public class Picture extends SimplePicture {
 		Pixel newRightPixel = null;
 		Pixel[][] pixels = this.getPixels2D();
 
-		// loop through the rows
 		for (int row = 230; row < 327; row++) {
-			// loop from 13 to just before the mirror point
 			for (int col = 230; col < 348; col++) {
 				origLeftPixel = pixels[row][col];
 				newRightPixel = pixels[row][mirror - col + mirror];
@@ -314,5 +310,23 @@ public class Picture extends SimplePicture {
 			}
 		}
 	}
+
+	public void mirrorDiagonal() {
+		Pixel origPixel = null;
+		Pixel newPixel = null;
+		Pixel[][] pixels = this.getPixels2D();
+
+		for (int row = 0; row < pixels.length; row++) {
+			for (int col = 0; col < pixels[0].length; col++) {
+				if (col < pixels.length) {
+					origPixel = pixels[col][row];
+					newPixel = pixels[row][col];
+					newPixel.setColor(origPixel.getColor());
+				}
+			}
+		}
+	}
+	
+	
 
 } // this } is the end of class Picture, put all new methods before this
