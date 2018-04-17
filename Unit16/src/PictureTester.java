@@ -40,6 +40,7 @@ public class PictureTester {
 	/** Method to test edgeDetection */
 	public static void testEdgeDetection() {
 		Picture swan = new Picture("swan.jpg");
+		swan.explore();
 		swan.edgeDetection(10);
 		swan.explore();
 	}
@@ -63,10 +64,10 @@ public class PictureTester {
 //		testMirrorArms();
 //		testMirrorGull();
 //		testMirrorDiagonal();
-		testCollage();
+//		testCollage();
 //		testCopy();
 //		testEdgeDetection();
-//		testEdgeDetection2();
+		testEdgeDetection2();
 //		testChromakey();
 //		testEncodeAndDecode();
 //		testGetCountRedOverValue(250);
@@ -74,7 +75,7 @@ public class PictureTester {
 //		testClearBlueOverValue(200);
 //		testGetAverageForColumn(0);
 	}
-
+	
 	public static void testKeepOnlyBlue() {
 		Picture beach = new Picture("beach.jpg");
 		beach.explore();
@@ -131,11 +132,24 @@ public class PictureTester {
 		seagull.explore();
 	}
 
-	private static void testMirrorDiagonal() {
+	public static void testMirrorDiagonal() {
 		Picture beach = new Picture("beach.jpg");
 		beach.explore();
 		beach.mirrorDiagonal();
 		beach.explore();
 	}
-
+	
+	public static void testCopy() {
+		Picture beach = new Picture("beach.jpg");
+		beach.explore();
+		beach.copy(beach, 0, 320);
+		beach.explore();		
+	}
+	
+	public static void testEdgeDetection2() {
+		Picture swan = new Picture("swan.jpg");
+		swan.explore();
+		swan.edgeDetection2(10);
+		swan.explore();
+	}
 }
