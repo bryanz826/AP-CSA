@@ -3,7 +3,7 @@
 //Name -
 //Date - 
 //Class -
-//Lab  -
+//Lab   -
 
 import java.awt.Graphics;
 import java.util.ArrayList;
