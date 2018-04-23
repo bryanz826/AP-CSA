@@ -44,25 +44,8 @@ public class AlienHorde {
 			al.draw(window);
 	}
 
-	public void removeDeadOnes(List<Ammo> shots) {
-		for (int i = 0; i < shots.size(); i++)
-			for (int j = 0; j < aliens.size(); j++)
-				try {
-					if (shots.get(i).isCollidingMT(aliens.get(j))) {
-						shots.remove(i);
-						aliens.remove(j);
-						size--;
-					}
-				} catch (Exception e) {
-				}
-	}
-
-	public void checkShipDeath(Ship ship) {
-		for (int i = 0; i < aliens.size(); i++)
-			if (ship.isCollidingMT(aliens.get(i))) {
-				System.out.println("You lose.");
-				System.exit(0);
-			}
+	public List<Alien> getAliens() {
+		return aliens;
 	}
 
 	public int getSize() {

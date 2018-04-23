@@ -7,42 +7,33 @@
 
 import java.awt.Graphics;
 
-public abstract class MovingThing implements Moveable {
-	private int xPos;
-	private int yPos;
-	private int width;
-	private int height;
+public abstract class MovingThing implements Moveable
+{
+	private int	xPos;
+	private int	yPos;
+	private int	width;
+	private int	height;
 
-	public MovingThing() {
+	public MovingThing()
+	{
 		this(10, 10, 10, 10);
 	}
 
-	public MovingThing(int x, int y) {
+	public MovingThing(int x, int y)
+	{
 		this(x, y, 10, 10);
 	}
 
-	public MovingThing(int x, int y, int w, int h) {
+	public MovingThing(int x, int y, int w, int h)
+	{
 		setPos(x - w / 2, y - w / 2);
 		setWidth(w);
 		setHeight(h);
 	}
 
-	public boolean isCollidingMT(MovingThing mt) {
-		// check collision at central left, right, top, and bottom
-		if (partialCollision(this.getX(), this.getY() + this.getHeight() / 2, mt))
-			return true;
-		else if (partialCollision(this.getX() + this.getWidth(), this.getY() + this.getHeight() / 2, mt))
-			return true;
-		else if (partialCollision(this.getX() + this.getWidth() / 2, this.getY(), mt))
-			return true;
-		else if (partialCollision(this.getX() + this.getWidth() / 2, this.getY() + this.getHeight(), mt))
-			return true;
-		return false;
-	}
-
-	private boolean partialCollision(int pointX, int pointY, MovingThing mt) {
-		return pointX > mt.getX() && pointX < mt.getX() + mt.getWidth() && pointY > mt.getY()
-				&& pointY < mt.getY() + mt.getHeight();
+	public boolean isColliding(MovingThing mt) {
+		return getX() < mt.getX() + mt.getWidth() && getX() + getWidth() > mt.getX()
+				&& getY() < mt.getY() + mt.getHeight() && getY() + getHeight() > mt.getY();
 	}
 
 	public void setPos(int x, int y) {

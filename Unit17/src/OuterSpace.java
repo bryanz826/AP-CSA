@@ -13,43 +13,43 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
-
 /**
  * 
- * CROP alien.JPG and ship.jpg AS SMALL AS YOU CAN WITHOUT DAMAGING PICTURE FOR OPTIMAL COLLISIONS
+ * CROP alien.JPG and ship.jpg AS SMALL AS YOU CAN WITHOUT DAMAGING PICTURE FOR
+ * OPTIMAL COLLISIONS
  *
  */
 
-
-
 @SuppressWarnings("serial")
-public class OuterSpace extends Canvas implements KeyListener, Runnable {
+public class OuterSpace extends Canvas implements KeyListener, Runnable
+{
 
-	private Ship ship;
-	private Bullets shots;
+	private Ship			ship;
+	private Bullets			shots;
 
-	private int tick;
+	private int				tick;
 
-	private AlienHorde horde;
-	private boolean[] keys;
-	private BufferedImage back;
+	private AlienHorde		horde;
+	private boolean[]		keys;
+	private BufferedImage	back;
 
-	public OuterSpace() {
+	public OuterSpace()
+	{
 		setBackground(Color.black);
 
 		keys = new boolean[5];
 
 		ship = new Ship(400, 500, 35, 35, 2);
-		
+
 		int hordeWidth = 7;
 		int hordeHeight = 4;
 		int hordeSize = hordeWidth * hordeHeight;
-		
+
 		horde = new AlienHorde(hordeSize);
 		shots = new Bullets();
-		
-		for(int x = 8; x < StarFighter.WIDTH - 100; x += (StarFighter.WIDTH) / 8)
-			for(int y = 22; y < StarFighter.HEIGHT / 1.5; y += (StarFighter.HEIGHT / 1.5) / 4)
+
+		for (int x = 8; x < StarFighter.WIDTH - 100; x += (StarFighter.WIDTH) / 8)
+			for (int y = 22; y < StarFighter.HEIGHT / 1.5; y += (StarFighter.HEIGHT / 1.5) / 4)
 				horde.add(new Alien(x + 20, y, 25, 25, 1));
 
 		this.addKeyListener(this);
@@ -64,8 +64,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 
 	public void paint(Graphics window) {
 		Graphics2D twoDGraph = (Graphics2D) window;
-		if (back == null)
-			back = (BufferedImage) (createImage(getWidth(), getHeight()));
+		if (back == null) back = (BufferedImage) (createImage(getWidth(), getHeight()));
 		Graphics graphToBack = back.createGraphics();
 
 		graphToBack.setColor(Color.BLUE);
@@ -96,11 +95,25 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 		}
 
 		// update
+
+		// check collision between ammo and alienhorde
+		for (int i = 0; i < shots.getAmmo().size(); i++)
+			for (int j = 0; j < horde.getAliens().size(); j++)
+				if (shots.getAmmo().get(i).isColliding(horde.getAliens().get(j))) {
+					shots.getAmmo().remove(i--);
+					horde.getAliens().remove(j--);
+				}
+
+		// check collision between ship and alienhorde
+		for (int i = 0; i < horde.getAliens().size(); i++)
+			if (ship.isColliding(horde.getAliens().get(i))) {
+				System.out.println("You lose.");
+				System.exit(0);
+			}
+
 		horde.moveEmAll();
 		shots.moveEmAll();
-		horde.removeDeadOnes(shots.getList());
 		shots.cleanEmUp();
-		horde.checkShipDeath(ship);
 
 		if (horde.getSize() == 0) {
 			System.out.println("You win!");
@@ -109,7 +122,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 
 		// render
 		graphToBack.setColor(Color.WHITE);
-		graphToBack.drawString(""+horde.getSize(), 740, 530);
+		graphToBack.drawString("" + horde.getSize(), 740, 530);
 		ship.draw(graphToBack);
 		shots.drawEmAll(graphToBack);
 		horde.drawEmAll(graphToBack);
@@ -154,8 +167,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 		}
 	}
 
-	public void keyTyped(KeyEvent e) {
-	}
+	public void keyTyped(KeyEvent e) {}
 
 	public void run() {
 		try {
@@ -164,7 +176,6 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 				Thread.sleep(5);
 				repaint();
 			}
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 	}
 }
