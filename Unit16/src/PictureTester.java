@@ -70,12 +70,14 @@ public class PictureTester {
 //		testCopy();
 //		testEdgeDetection();
 //		testEdgeDetection2();
-		testChromakey();
+//		testChromakey();
 //		testEncodeAndDecode();
 //		testGetCountRedOverValue(250);
 //		testSetRedToHalfValueInTopHalf();
 //		testClearBlueOverValue(200);
 //		testGetAverageForColumn(0);
+//		testSharpen(50, 50, 500, 400);
+		testTransparenify();
 	}
 
 	public static void testKeepOnlyBlue() {
@@ -194,5 +196,20 @@ public class PictureTester {
 	public static void testGetAverageForColumn(int n) {
 		Picture beach = new Picture("beach.jpg");
 		System.out.println(beach.getAverageForColumn(n));
+	} 
+	
+	public static void testSharpen(int x, int y, int w, int h)
+	{
+	     Picture redMoto = new Picture("redMotorcycle.jpg");
+	     redMoto.explore();
+	     redMoto.sharpen(x,y,w,h);
+	     redMoto.explore();
+	}
+	
+	public static void testTransparenify() {
+		Picture laser = new Picture("laser.jpg");
+		laser.explore();
+		laser.transparenify();
+		laser.explore();
 	}
 }

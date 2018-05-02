@@ -14,13 +14,15 @@ import javax.imageio.ImageIO;
  * 
  * @author Barbara Ericson ericson@cc.gatech.edu
  */
-public class Picture extends SimplePicture {
+public class Picture extends SimplePicture
+{
 	///////////////////// constructors //////////////////////////////////
 
 	/**
 	 * Constructor that takes no arguments
 	 */
-	public Picture() {
+	public Picture()
+	{
 		/*
 		 * not needed but use it to show students the implicit call to super() child
 		 * constructors always call a parent constructor
@@ -34,7 +36,8 @@ public class Picture extends SimplePicture {
 	 * @param fileName
 	 *            the name of the file to create the picture from
 	 */
-	public Picture(String fileName) {
+	public Picture(String fileName)
+	{
 		// let the parent class handle this fileName
 		super(fileName);
 	}
@@ -47,7 +50,8 @@ public class Picture extends SimplePicture {
 	 * @param width
 	 *            the width of the desired picture
 	 */
-	public Picture(int height, int width) {
+	public Picture(int height, int width)
+	{
 		// let the parent class handle this width and height
 		super(width, height);
 	}
@@ -58,7 +62,8 @@ public class Picture extends SimplePicture {
 	 * @param copyPicture
 	 *            the picture to copy
 	 */
-	public Picture(Picture copyPicture) {
+	public Picture(Picture copyPicture)
+	{
 		// let the parent class do the copy
 		super(copyPicture);
 	}
@@ -69,7 +74,8 @@ public class Picture extends SimplePicture {
 	 * @param image
 	 *            the buffered image to use
 	 */
-	public Picture(BufferedImage image) {
+	public Picture(BufferedImage image)
+	{
 		super(image);
 	}
 
@@ -151,9 +157,11 @@ public class Picture extends SimplePicture {
 		Pixel[][] toPixels = this.getPixels2D();
 		Pixel[][] fromPixels = fromPic.getPixels2D();
 		for (int fromRow = 0, toRow = startRow; fromRow < fromPixels.length
-				&& toRow < toPixels.length; fromRow++, toRow++) {
+				&& toRow < toPixels.length; fromRow++, toRow++)
+		{
 			for (int fromCol = 0, toCol = startCol; fromCol < fromPixels[0].length
-					&& toCol < toPixels[0].length; fromCol++, toCol++) {
+					&& toCol < toPixels[0].length; fromCol++, toCol++)
+			{
 				fromPixel = fromPixels[fromRow][fromCol];
 				toPixel = toPixels[toRow][toCol];
 				toPixel.setColor(fromPixel.getColor());
@@ -192,10 +200,8 @@ public class Picture extends SimplePicture {
 			for (int col = 0; col < pixels[0].length - 1; col++) {
 				leftPixel = pixels[row][col];
 				rightPixel = pixels[row][col + 1];
-				if (leftPixel.colorDistance(rightPixel.getColor()) > edgeDist)
-					leftPixel.setColor(Color.BLACK);
-				else
-					leftPixel.setColor(Color.WHITE);
+				if (leftPixel.colorDistance(rightPixel.getColor()) > edgeDist) leftPixel.setColor(Color.BLACK);
+				else leftPixel.setColor(Color.WHITE);
 			}
 		}
 	}
@@ -267,8 +273,7 @@ public class Picture extends SimplePicture {
 		Pixel[][] pixels = this.getPixels2D();
 		for (Pixel[] rowArray : pixels) {
 			for (Pixel pixelObj : rowArray) {
-				if (pixelObj.getBlue() > pixelObj.getGreen() && 
-						pixelObj.getBlue() > pixelObj.getRed())
+				if (pixelObj.getBlue() > pixelObj.getGreen() && pixelObj.getBlue() > pixelObj.getRed())
 					pixelObj.setGreen(255);
 			}
 		}
@@ -342,8 +347,7 @@ public class Picture extends SimplePicture {
 				if (leftPixel.colorDistance(rightPixel.getColor()) > edgeDist
 						|| topPixel.colorDistance(bottomPixel.getColor()) > edgeDist)
 					leftPixel.setColor(Color.BLACK);
-				else
-					leftPixel.setColor(Color.WHITE);
+				else leftPixel.setColor(Color.WHITE);
 			}
 		}
 	}
@@ -355,7 +359,8 @@ public class Picture extends SimplePicture {
 			for (int col = 0; col < pixels[0].length; col++) {
 				if ((Math.abs(pixels[row][col].getRed() - color.getRed()) < allowance)
 						&& (Math.abs(pixels[row][col].getGreen() - color.getGreen()) < allowance)
-						&& (Math.abs(pixels[row][col].getBlue() - color.getBlue()) < allowance)) {
+						&& (Math.abs(pixels[row][col].getBlue() - color.getBlue()) < allowance))
+				{
 					pixels[row][col].setColor(newPixels[row][col].getColor());
 				}
 			}
@@ -373,7 +378,7 @@ public class Picture extends SimplePicture {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			byte[] imageByteArray = Base64.getDecoder().decode(base64Image);
 			BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageByteArray));
@@ -388,8 +393,7 @@ public class Picture extends SimplePicture {
 		int count = 0;
 		for (Pixel[] rowArray : pixels) {
 			for (Pixel pixelObj : rowArray) {
-				if (pixelObj.getRed() > n)
-					count++;
+				if (pixelObj.getRed() > n) count++;
 			}
 		}
 		return count;
@@ -408,8 +412,7 @@ public class Picture extends SimplePicture {
 		Pixel[][] pixels = this.getPixels2D();
 		for (Pixel[] rowArray : pixels) {
 			for (Pixel pixelObj : rowArray) {
-				if (pixelObj.getBlue() > n)
-					pixelObj.setBlue(0);
+				if (pixelObj.getBlue() > n) pixelObj.setBlue(0);
 			}
 		}
 	}
@@ -427,4 +430,48 @@ public class Picture extends SimplePicture {
 		return String.format("(%s, %s, %s)", totalRed / pixels.length, totalGreen / pixels.length,
 				totalBlue / pixels.length);
 	}
+
+	public void sharpen(int x, int y, int w, int h) {
+		System.out.println("Bryan Zhang\nPeriod 2\n2018/4/24\n38");
+
+		if (x == 0) x += 1;
+		if (y == 0) y += 1;
+
+		Pixel[][] pixels = this.getPixels2D();
+		for (int row = y; row < h; row++) {
+			for (int col = x; col < w; col++) {
+				System.out.println(row + ", " + col);
+				Pixel currPixel = pixels[row][col];
+				Pixel newPixel = pixels[row - 1][col - 1];
+
+				currPixel.setRed(currPixel.getRed() + (currPixel.getRed() - newPixel.getRed()) / 2);
+				if (currPixel.getRed() > 255) currPixel.setRed(255);
+				else if (currPixel.getRed() < 0) currPixel.setRed(0);
+
+				currPixel.setBlue(currPixel.getBlue() + (currPixel.getBlue() - newPixel.getBlue()) / 2);
+				if (currPixel.getBlue() > 255) currPixel.setBlue(255);
+				else if (currPixel.getBlue() < 0) currPixel.setBlue(0);
+
+				currPixel.setGreen(currPixel.getGreen() + (currPixel.getGreen() - newPixel.getGreen()) / 2);
+				if (currPixel.getGreen() > 255) currPixel.setGreen(255);
+				else if (currPixel.getGreen() < 0) currPixel.setGreen(255);
+			}
+		}
+	}
+
+	public void transparenify() {
+		Pixel[][] pixels = this.getPixels2D();
+		for (Pixel[] rowArray : pixels) {
+			for (Pixel pixelObj : rowArray) {
+				int i = 30;
+				if (pixelObj.getRed() < i && pixelObj.getBlue() < i && pixelObj.getGreen() < i) {
+					pixelObj.setRed(255 - pixelObj.getRed());
+					pixelObj.setBlue(255 - pixelObj.getBlue());
+					pixelObj.setGreen(255 - pixelObj.getGreen());
+					pixelObj.setAlpha((pixelObj.getRed() + pixelObj.getBlue() + pixelObj.getGreen()) / 3);
+				}
+			}
+		}
+	}
+
 } // this is the end of class Picture, put all new methods before this

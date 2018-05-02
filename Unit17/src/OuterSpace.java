@@ -74,7 +74,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 		tick++;
 
-		// processInputs
+		// processInput
 		if (keys[0] == true) {
 			ship.move("LEFT");
 		}
@@ -99,10 +99,12 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		// check collision between ammo and alienhorde
 		for (int i = 0; i < shots.getAmmo().size(); i++)
 			for (int j = 0; j < horde.getAliens().size(); j++)
-				if (shots.getAmmo().get(i).isColliding(horde.getAliens().get(j))) {
-					shots.getAmmo().remove(i--);
-					horde.getAliens().remove(j--);
-				}
+				try {
+					if (shots.getAmmo().get(i).isColliding(horde.getAliens().get(j))) {
+						shots.getAmmo().remove(i--);
+						horde.getAliens().remove(j--);
+					}
+				} catch (Exception e) {}
 
 		// check collision between ship and alienhorde
 		for (int i = 0; i < horde.getAliens().size(); i++)
@@ -122,7 +124,6 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 		// render
 		graphToBack.setColor(Color.WHITE);
-		graphToBack.drawString("" + horde.getSize(), 740, 530);
 		ship.draw(graphToBack);
 		shots.drawEmAll(graphToBack);
 		horde.drawEmAll(graphToBack);
