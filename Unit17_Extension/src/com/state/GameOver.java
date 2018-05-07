@@ -2,9 +2,9 @@ package com.state;
 
 import java.awt.Graphics2D;
 
-import com.manager.Keys;
-import com.manager.Text;
 import com.state.levels.LevelManager;
+import com.text.Text;
+import com.utils.Keys;
 import com.utils.Reference;
 import com.utils.Resource;
 

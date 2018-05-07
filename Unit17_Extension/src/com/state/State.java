@@ -1,18 +1,14 @@
 package com.state;
 
-import java.awt.Graphics2D;
+import com.utils.Playable;
 
-public interface State
+public interface State extends Playable
 {
 	public void init();
 
 	public void enter();
-	
-	public void processInput(States sm);
 
-	public void update(States sm);
-
-	public void render(Graphics2D g);
+	public void exit();
 
 	public String getName();
 }

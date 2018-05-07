@@ -1,14 +1,11 @@
 package com.state;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
-import com.entity.mobile.models.ModelAlien;
-import com.entity.mobile.models.ModelShip;
-import com.main.OuterSpace;
-import com.manager.Keys;
-import com.manager.Text;
+import com.main.GamePanel;
 import com.state.levels.LevelManager;
+import com.text.Text;
+import com.utils.Keys;
 import com.utils.Reference;
 import com.utils.Resource;
 
@@ -19,8 +16,8 @@ public class Menu implements State
 	private Resource	selectLeft;
 	private Resource	selectRight;
 
-	private ModelShip	ship;
-	private ModelAlien	alien;
+//	private ModelShip	ship;
+//	private ModelAlien	alien;
 
 	private int			currentOption	= 0;
 	private String[]	options			= { "START", "QUIT", "TOGGLE FPS" };
@@ -44,7 +41,7 @@ public class Menu implements State
 
 	@Override
 	public void enter() {
-		ship = new ModelShip(Reference.CENTER_X, Reference.HEIGHT, -10, -3);
+//		ship = new ModelShip(Reference.CENTER_X, Reference.HEIGHT, -10, -3);
 
 		anim1 = true;
 		anim2 = false;
@@ -53,7 +50,13 @@ public class Menu implements State
 	}
 
 	@Override
-	public void processInput(States sm) {
+	public void exit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void processInput() {
 		if (Keys.wasPressed(Keys.UP)) {
 			if (--currentOption < 0) currentOption = options.length - 1;
 		}
@@ -62,12 +65,12 @@ public class Menu implements State
 		}
 
 		if (Keys.wasPressed(Keys.ENTER)) {
-			selectOption(sm);
+			selectOption();
 		}
 	}
 
 	@Override
-	public void update(States sm) {
+	public void update() {
 		updateBackground();
 	}
 
@@ -96,185 +99,185 @@ public class Menu implements State
 	}
 
 	private void updateBackground() {
-		// background animation
-		if (anim1) {
-			// handle ship
-			if (ship.getX() + 16 <= Reference.CENTER_X) {
-				ship.ddx(0.14);
-			} else if (ship.getX() > Reference.CENTER_X) {
-				ship.ddx(-0.09);
-			}
-
-			ship.update();
-
-			// check offscreen
-			if (ship.getY() < -160) {
-				anim1 = false;
-
-				ship.setX(450);
-				ship.setY(Reference.HEIGHT);
-				ship.setDx(0);
-				ship.setDy(-2.5);
-
-				alien = new ModelAlien(0, 0, 3, 3);
-
-				anim2 = true;
-			}
-		} else if (anim2) {
-			// handle ship
-			if (ship.getY() <= Reference.CENTER_Y) {
-				ship.ddx(-0.05);
-			}
-
-			// handle alien
-			alien.ddx(-0.035);
-			alien.ddy(-0.035);
-
-			ship.update();
-			alien.update();
-
-			// check offscreen
-			if (ship.getX() < -100) {
-				anim2 = false;
-
-				ship.setX(50);
-				ship.setY(Reference.HEIGHT);
-				ship.setDx(0);
-				ship.setDy(-1.7);
-
-				alien.setX(20);
-				alien.setY(-90);
-				alien.setWidth(85);
-				alien.setHeight(85);
-				alien.setDx(0);
-				alien.setDy(0);
-
-				anim3 = true;
-			}
-		} else if (anim3) {
-
-			// handle ship
-			if (ship.getY() < 510 && ship.getY() > 420) {// slow down
-				ship.ddx(0.02);
-				ship.ddy(0.009);
-				if (ship.getX() > 74 && ship.getX() <= 76) {
-					alien.setDx(1);
-					alien.setDy(3.5);
-				} else if (ship.getX() > 90 && ship.getX() < 91) {
-					bulletX = alien.getX() + alien.getWidth() / 2;
-					bulletY = alien.getY() + alien.getHeight() / 1.4;
-					alienBullet = true;
-				}
-			} else if (alien.getY() >= 92) { // run away
-				ship.setImage(Reference.ENTITY_LOC + "runaway_ship.png");
-				ship.ddx(0.5);
-				ship.ddy(5);
-			} else if (ship.getY() <= 420) { // move slowly
-				ship.setDx(0.05);
-				ship.setDy(-0.01);
-			}
-
-			// handle alien
-			if (ship.getX() > 80) {
-				alien.ddx(-0.01);
-				alien.ddy(0.01);
-				if (alien.getY() > 170) {
-					alien.ddy(0.5);
-				}
-			}
-
-			ship.update();
-			alien.update();
-
-			if (alien.getY() > Reference.HEIGHT + 1000) {
-				anim3 = false;
-
-				ship.setX(1077);
-				ship.setY(-20);
-				ship.setDx(0);
-				ship.setDy(10);
-
-				alien.setX(1077);
-				alien.setY(-90);
-				alien.setDx(0);
-				alien.setDy(0);
-
-				anim4 = true;
-			}
-		} else if (anim4) {
-
-			// handle ship
-			if (ship.getY() <= 322) {
-				ship.ddy(-0.135);
-			} else if (ship.getY() > 322 && ship.getY() <= 345) {
-				ship.setDy(0.3);
-			} else if (ship.getY() > 345 && ship.getY() <= 355) {
-				ship.setImage(Reference.ENTITY_LOC + "ship.png");
-				ship.setDy(0.15);
-				ship.setDx(0.15);
-			} else if (ship.getY() > 355) {
-				ship.ddy(4);
-			} else if (ship.getY() > 8000) {
-				ship.setDy(0);
-			}
-
-			// handle alien
-			if (ship.getY() > 320 && ship.getY() <= Reference.HEIGHT + 500) {
-				alien.setDy(1);
-				if (alien.getX() + alien.getWidth() / 2 > ship.getX() + ship.getWidth() / 2) {
-					alien.ddx(-0.2);
-				} else {
-					alien.ddx(0.2);
-				}
-			} else if (ship.getY() > Reference.HEIGHT + 3000 && ship.getY() < Reference.HEIGHT + 5000) {
-				alien.setDx(0);
-				alien.setDy(0.1);
-			} else if (alien.getY() > 83) {
-				alien.setImage(Reference.ENTITY_LOC + "walkaway_alien.png");
-				alien.ddy(-0.1);
-			}
-
-			ship.update();
-			alien.update();
-
-			if (alien.getY() < -250) {
-				anim4 = false;
-
-				ship.setImage(Reference.ENTITY_LOC + "ship.png");
-				ship.setX(Reference.CENTER_X);
-				ship.setY(Reference.HEIGHT);
-				ship.setDx(-5);
-				ship.setDy(-3);
-				alien = null;
-
-				anim1 = true;
-			}
-		}
+//		// background animation
+//		if (anim1) {
+//			// handle ship
+//			if (ship.getX() + 16 <= Reference.CENTER_X) {
+//				ship.ddx(0.14);
+//			} else if (ship.getX() > Reference.CENTER_X) {
+//				ship.ddx(-0.09);
+//			}
+//
+//			ship.update();
+//
+//			// check offscreen
+//			if (ship.getY() < -160) {
+//				anim1 = false;
+//
+//				ship.setX(450);
+//				ship.setY(Reference.HEIGHT);
+//				ship.setDx(0);
+//				ship.setDy(-2.5);
+//
+//				alien = new ModelAlien(0, 0, 3, 3);
+//
+//				anim2 = true;
+//			}
+//		} else if (anim2) {
+//			// handle ship
+//			if (ship.getY() <= Reference.CENTER_Y) {
+//				ship.ddx(-0.05);
+//			}
+//
+//			// handle alien
+//			alien.ddx(-0.035);
+//			alien.ddy(-0.035);
+//
+//			ship.update();
+//			alien.update();
+//
+//			// check offscreen
+//			if (ship.getX() < -100) {
+//				anim2 = false;
+//
+//				ship.setX(50);
+//				ship.setY(Reference.HEIGHT);
+//				ship.setDx(0);
+//				ship.setDy(-1.7);
+//
+//				alien.setX(20);
+//				alien.setY(-90);
+//				alien.setWidth(85);
+//				alien.setHeight(85);
+//				alien.setDx(0);
+//				alien.setDy(0);
+//
+//				anim3 = true;
+//			}
+//		} else if (anim3) {
+//
+//			// handle ship
+//			if (ship.getY() < 510 && ship.getY() > 420) {// slow down
+//				ship.ddx(0.02);
+//				ship.ddy(0.009);
+//				if (ship.getX() > 74 && ship.getX() <= 76) {
+//					alien.setDx(1);
+//					alien.setDy(3.5);
+//				} else if (ship.getX() > 90 && ship.getX() < 91) {
+//					bulletX = alien.getX() + alien.getWidth() / 2;
+//					bulletY = alien.getY() + alien.getHeight() / 1.4;
+//					alienBullet = true;
+//				}
+//			} else if (alien.getY() >= 92) { // run away
+//				ship.setImage(Reference.ENTITY_LOC + "runaway_ship.png");
+//				ship.ddx(0.5);
+//				ship.ddy(5);
+//			} else if (ship.getY() <= 420) { // move slowly
+//				ship.setDx(0.05);
+//				ship.setDy(-0.01);
+//			}
+//
+//			// handle alien
+//			if (ship.getX() > 80) {
+//				alien.ddx(-0.01);
+//				alien.ddy(0.01);
+//				if (alien.getY() > 170) {
+//					alien.ddy(0.5);
+//				}
+//			}
+//
+//			ship.update();
+//			alien.update();
+//
+//			if (alien.getY() > Reference.HEIGHT + 1000) {
+//				anim3 = false;
+//
+//				ship.setX(1077);
+//				ship.setY(-20);
+//				ship.setDx(0);
+//				ship.setDy(10);
+//
+//				alien.setX(1077);
+//				alien.setY(-90);
+//				alien.setDx(0);
+//				alien.setDy(0);
+//
+//				anim4 = true;
+//			}
+//		} else if (anim4) {
+//
+//			// handle ship
+//			if (ship.getY() <= 322) {
+//				ship.ddy(-0.135);
+//			} else if (ship.getY() > 322 && ship.getY() <= 345) {
+//				ship.setDy(0.3);
+//			} else if (ship.getY() > 345 && ship.getY() <= 355) {
+//				ship.setImage(Reference.ENTITY_LOC + "ship.png");
+//				ship.setDy(0.15);
+//				ship.setDx(0.15);
+//			} else if (ship.getY() > 355) {
+//				ship.ddy(4);
+//			} else if (ship.getY() > 8000) {
+//				ship.setDy(0);
+//			}
+//
+//			// handle alien
+//			if (ship.getY() > 320 && ship.getY() <= Reference.HEIGHT + 500) {
+//				alien.setDy(1);
+//				if (alien.getX() + alien.getWidth() / 2 > ship.getX() + ship.getWidth() / 2) {
+//					alien.ddx(-0.2);
+//				} else {
+//					alien.ddx(0.2);
+//				}
+//			} else if (ship.getY() > Reference.HEIGHT + 3000 && ship.getY() < Reference.HEIGHT + 5000) {
+//				alien.setDx(0);
+//				alien.setDy(0.1);
+//			} else if (alien.getY() > 83) {
+//				alien.setImage(Reference.ENTITY_LOC + "walkaway_alien.png");
+//				alien.ddy(-0.1);
+//			}
+//
+//			ship.update();
+//			alien.update();
+//
+//			if (alien.getY() < -250) {
+//				anim4 = false;
+//
+//				ship.setImage(Reference.ENTITY_LOC + "ship.png");
+//				ship.setX(Reference.CENTER_X);
+//				ship.setY(Reference.HEIGHT);
+//				ship.setDx(-5);
+//				ship.setDy(-3);
+//				alien = null;
+//
+//				anim1 = true;
+//			}
+//		}
 	}
 
 	private void renderBackground(Graphics2D g) {
 		bg.render(g, 0, 0, Reference.WIDTH, Reference.HEIGHT);
 
-		if (anim2 || anim3 || anim4) alien.render(g);
-		if (anim3 && alienBullet) {
-			g.setColor(Color.YELLOW);
-			g.fillOval((int) (bulletX), (int) (bulletY += 8), 5, 15);
-			if (bulletY > Reference.HEIGHT) alienBullet = false;
-		}
-		ship.render(g);
+//		if (anim2 || anim3 || anim4) alien.render(g);
+//		if (anim3 && alienBullet) {
+//			g.setColor(Color.YELLOW);
+//			g.fillOval((int) (bulletX), (int) (bulletY += 8), 5, 15);
+//			if (bulletY > Reference.HEIGHT) alienBullet = false;
+//		}
+//		ship.render(g);
 	}
 
-	private void selectOption(States sm) {
+	private void selectOption() {
 		if (currentOption == 0) {
 			LevelManager.start();
-			sm.setState("LEVEL00");
+			States.setState("TESTSTATE");
 		}
 		if (currentOption == 1) {
-			OuterSpace.setRunning(false);
+			GamePanel.setRunning(false);
 		}
 		if (currentOption == 2) {
-			if (OuterSpace.getShowFPS()) OuterSpace.setShowFPS(false);
-			else OuterSpace.setShowFPS(true);
+			if (GamePanel.getShowFPS()) GamePanel.setShowFPS(false);
+			else GamePanel.setShowFPS(true);
 		}
 	}
 

@@ -1,11 +1,11 @@
 package com.utils;
 
-import com.main.StarFighter;
+import com.main.SpaceVenture;
 
 public class Reference
 {
-	public static final int WIDTH = StarFighter.WIDTH;
-	public static final int HEIGHT = StarFighter.HEIGHT;
+	public static final int WIDTH = SpaceVenture.WIDTH;
+	public static final int HEIGHT = SpaceVenture.HEIGHT;
 	public static final int CENTER_X = WIDTH / 2;
 	public static final int CENTER_Y = HEIGHT / 2;
 	

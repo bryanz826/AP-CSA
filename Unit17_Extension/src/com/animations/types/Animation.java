@@ -1,43 +1,64 @@
 package com.animations.types;
 
-import java.awt.Graphics2D;
-
 import com.utils.Resource;
 
 public abstract class Animation
 {
-	protected int			count;
-	protected int			index;
+	private int			count;
+	private int			index;
 
-	protected int			speed;
-	protected int			numFrames;
-	protected Resource		currentFrame;
-	protected Resource[]	frames;
+	private int			speed;
+	private int			numFrames;
+	private Resource	currentFrame;
+	private Resource[]	frames;
 
-	protected abstract boolean nextFrame();
-
-	public abstract boolean update();
-
-	// still
-	public void render(Graphics2D g) {}
-
-	// moving
-	public void render(Graphics2D g, double x, double y) {
-		if (currentFrame != null) currentFrame.render(g, (int) x, (int) y);
+	public Animation(int speed, Resource... frames) {
+		this.speed = speed;
+		this.numFrames = frames.length;
+		this.frames = frames;
 	}
-
-	// moving
-	public void render(Graphics2D g, double x, double y, double width, double height) {
-		if (currentFrame != null) currentFrame.render(g, (int) (x - width / 2), (int) (y - width / 2),
-				(int) (2 * width), (int) (height + width));
+	
+	public void setCount(int count) {
+		this.count = count;
+	}
+	
+	public void setIndex(int index) {
+		this.index = index;
+	}
+	
+	public void setCurrentFrame(Resource currentFrame) {
+		this.currentFrame = currentFrame;
+	}
+	
+	public int getCount() {
+		return count;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+	
+	public int getSpeed() {
+		return speed;
+	}
+	
+	public int getNumFrames() {
+		return numFrames;
+	}
+	
+	public Resource getCurrentFrame() {
+		return currentFrame;
+	}
+	
+	public Resource[] getFrames() {
+		return frames;
 	}
 
 	@Override
 	public String toString() {
-		String output = "";
-		for (Resource frame : frames) {
-			output += frame + " ";
-		}
-		return output;
+		String output = "Animation [";
+		for (int i = 0; i < frames.length - 1; i++)
+			output += frames[i] + ", ";
+		return output + frames[frames.length - 1] + "]";
 	}
 }

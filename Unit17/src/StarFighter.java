@@ -27,7 +27,6 @@ public class StarFighter extends JFrame {
 	}
 
 	public static void main(String args[]) {
-		StarFighter run = new StarFighter();
-		run.repaint();
+		new StarFighter();
 	}
 }

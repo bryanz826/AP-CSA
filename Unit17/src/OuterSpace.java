@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 
 /**
  * 
@@ -96,15 +97,36 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 
 		// update
 
+		
+		
+		
+		
+		
+		
+		
+		
 		// check collision between ammo and alienhorde
-		for (int i = 0; i < shots.getAmmo().size(); i++)
-			for (int j = 0; j < horde.getAliens().size(); j++)
-				try {
-					if (shots.getAmmo().get(i).isColliding(horde.getAliens().get(j))) {
-						shots.getAmmo().remove(i--);
-						horde.getAliens().remove(j--);
-					}
-				} catch (Exception e) {}
+//		for (int i = 0; i < shots.getAmmo().size(); i++)
+//			for (int j = 0; j < horde.getAliens().size(); j++)
+//				if (shots.getAmmo().get(i).isColliding(horde.getAliens().get(j))) {
+//					shots.getAmmo().remove(i);
+//					horde.getAliens().remove(j);
+//				}
+		
+		for (Iterator<Ammo> iterA = shots.getAmmo().iterator(); iterA.hasNext();) {
+			Ammo a = iterA.next();
+			for (Iterator<Alien> iterAl = horde.getAliens().iterator(); iterAl.hasNext();) {
+				Alien al = iterAl.next();
+				
+				if (a.isColliding(al)) {
+					iterA.remove();
+					iterAl.remove();
+				}
+			}
+		}
+
+		
+		
 
 		// check collision between ship and alienhorde
 		for (int i = 0; i < horde.getAliens().size(); i++)

@@ -2,9 +2,8 @@ package com.state.levels;
 
 import java.awt.Graphics2D;
 
-import com.manager.Text;
 import com.state.State;
-import com.state.States;
+import com.text.Text;
 import com.utils.Reference;
 import com.utils.Resource;
 
@@ -26,12 +25,18 @@ public class Level00 extends LevelManager implements State
 	}
 
 	@Override
-	public void processInput(States sm) {
-		super.processInput(sm);
+	public void exit() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void update(States sm) {
+	public void processInput() {
+		super.processInput();
+	}
+
+	@Override
+	public void update() {
 		if (wave == 0) {
 			if (tick == 50) {
 				powerups.addBulletUp(Reference.CENTER_X, Reference.CENTER_Y - 100);
@@ -76,11 +81,11 @@ public class Level00 extends LevelManager implements State
 
 		if (ship.getY() < 0) {
 			ship.setPass(false);
-			sm.setState("LEVEL01");
+			States.setState("LEVEL01");
 			ship.setY(Reference.HEIGHT);
 		}
 
-		super.update(sm);
+		super.update();
 	}
 
 	@Override
@@ -94,5 +99,4 @@ public class Level00 extends LevelManager implements State
 	public String getName() {
 		return "LEVEL00";
 	}
-
 }

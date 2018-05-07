@@ -2,15 +2,14 @@ package com.state.levels;
 
 import java.awt.Graphics2D;
 
-import com.animations.Animations;
 import com.entity.mobile.ammo.alien.Storage;
 import com.entity.mobile.ammo.player.Magazine;
 import com.entity.mobile.live.alien.AlienHorde;
 import com.entity.mobile.live.player.Ship;
 import com.entity.mobile.powerups.PowerUps;
-import com.manager.Collisions;
 import com.manager.HUD;
 import com.state.States;
+import com.utils.Collisions;
 import com.utils.Reference;
 import com.utils.Resource;
 
@@ -20,8 +19,6 @@ public abstract class LevelManager
 	public static final int		MAX_ROCKET_LEVEL	= 3;
 	public static final int		MIN_FREQUENCY		= 5;
 
-	protected static Animations	animations;
-	protected static Collisions	collisions;
 	protected static Ship		ship;
 	protected static AlienHorde	horde;
 	protected static PowerUps	powerups;
@@ -48,8 +45,6 @@ public abstract class LevelManager
 	public abstract void init();	
 	
 	public static void start() {
-		animations = new Animations();
-		collisions = new Collisions();
 		ship = new Ship(Reference.CENTER_X, Reference.CENTER_Y * 1.5, 7, 7, 20);
 		horde = new AlienHorde();
 		powerups = new PowerUps();
@@ -77,12 +72,12 @@ public abstract class LevelManager
 		storage.getStorage().clear();
 	}
 
-	public void processInput(States sm) {
+	public void processInput() {
 		if (!shipDead) ship.processInput(this);
 		hud.processInput(this);
 	}
 
-	public void update(States sm) {
+	public void update() {
 		timer++;
 		tick++;
 		
@@ -98,14 +93,9 @@ public abstract class LevelManager
 
 		if (rocketLevel == 1) magazine.monoRocketUp(ship, timer, frequency);
 		else if (rocketLevel == 2) magazine.dualRocketUp(ship, timer, frequency);
-		else if (rocketLevel == 3) magazine.triRocketUp(ship, timer, frequency);
+		else if (rocketLevel == 3) magazine.triRocketUp(ship, timer, frequency);	
 		
-//		if (laserLevel == 1) magazine.laser(ship);
-//		else if (laserLevel == 2) magazine.laser(ship);
-//		else if (laserLevel == 3) magazine.laser(ship);
-	
-		
-		collisions.update(ship, magazine, powerups, horde, storage);
+		Collisions.update(ship, magazine, powerups, horde, storage);
 
 		if (!shipDead) {
 			ship.update(sm, this, animations);
@@ -113,7 +103,7 @@ public abstract class LevelManager
 			magazine.update(animations, ship, hud);
 		} else if (shipDead) {
 			if (++tick == 250) {
-				sm.setState("GAMEOVER");
+				States.setState("GAMEOVER");
 			}
 		}
 		

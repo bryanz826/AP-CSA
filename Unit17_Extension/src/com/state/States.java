@@ -9,7 +9,7 @@ public class States
 	private static final Map<String, State>	map	= new HashMap<String, State>();
 	private static State					currentState;
 
-	public void addState(State state) {
+	public static void addState(State state) {
 		map.put(state.getName().toUpperCase(), state);
 		state.init();
 		if (currentState == null) {
@@ -19,7 +19,7 @@ public class States
 		}
 	}
 
-	public void setState(String name) {
+	public static void setState(String name) {
 		State state = map.get(name.toUpperCase());
 		if (state == null) {
 			System.err.printf("State <%s> does not exist!\n", name);
@@ -29,18 +29,18 @@ public class States
 		currentState.enter();
 	}
 
-	public void processInput() {
-		currentState.processInput(this);
+	public static void processInput() {
+		currentState.processInput();
 	}
 
-	public void update() {
-		currentState.update(this);
+	public static void update() {
+		currentState.update();
 	}
 
-	public void render(Graphics2D g) {
+	public static void render(Graphics2D g) {
 		currentState.render(g);
 	}
-	
+
 	public static State getCurrentState() {
 		return currentState;
 	}
