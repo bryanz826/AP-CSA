@@ -15,7 +15,7 @@ public class Keys extends KeyAdapter
 	public static int		DOWN			= 3;
 	public static int		ENTER			= 4;
 	public static int		ESCAPE			= 5;
-	public static int		R				= 6;
+	public static int 		R				= 6;
 
 	public static void keySet(int code, boolean b) {
 		if (KeyEvent.VK_LEFT == code) keyState[LEFT] = b;
@@ -65,7 +65,6 @@ public class Keys extends KeyAdapter
 
 	// key events
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) System.exit(0);
 		Keys.keySet(e.getKeyCode(), true);
 	}
 

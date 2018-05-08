@@ -1,18 +1,23 @@
 package main;
+
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
+import managers.StateManager;
+import states.GameOver;
+import states.Play;
 import utils.Keys;
 
+@SuppressWarnings("serial")
 public class GamePanel extends Canvas implements Runnable
 {
-	public static final boolean	DEBUGGING			= false;
+	public static final boolean	DEBUGGING	= false;
 
-	private static final int	FRAME_CAP			= 60;
-	private static final int	TARGET_UPS			= 60;
-	private int					FPS					= FRAME_CAP;			// initialized frame cap
-
+	private static final int	FRAME_CAP	= 60;
+	private static final int	TARGET_UPS	= 60;
+	private static int			FPS			= FRAME_CAP;
 	private static boolean		showFPS;
 	private static boolean		running;
 	private static boolean		pause;
@@ -20,7 +25,11 @@ public class GamePanel extends Canvas implements Runnable
 	public GamePanel()
 	{
 		addKeyListener(new Keys());
+		setBackground(Color.BLACK);
 		setVisible(true);
+		
+		StateManager.addState(new Play());
+		StateManager.addState(new GameOver());
 	}
 
 	private void init() {
@@ -30,11 +39,13 @@ public class GamePanel extends Canvas implements Runnable
 	}
 
 	private void processInput() {
+		StateManager.processInput();
+		if (Keys.wasPressed(Keys.ESCAPE)) System.exit(0);
 		Keys.update();
 	}
 
 	private void update() {
-		
+		StateManager.update();
 	}
 
 	private void render() {
@@ -49,7 +60,7 @@ public class GamePanel extends Canvas implements Runnable
 				try {
 					g = (Graphics2D) bs.getDrawGraphics();
 
-					
+					StateManager.render(g);
 
 				} finally {
 					g.dispose();
@@ -129,5 +140,9 @@ public class GamePanel extends Canvas implements Runnable
 
 	public static boolean getPause() {
 		return pause;
+	}
+
+	public static int getFPS() {
+		return FPS;
 	}
 }

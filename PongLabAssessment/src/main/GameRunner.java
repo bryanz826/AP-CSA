@@ -25,6 +25,7 @@ public class GameRunner
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
+		frame.setUndecorated(true);
 		frame.setVisible(true);
 
 		game.start();

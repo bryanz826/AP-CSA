@@ -49,10 +49,10 @@ public class GameOver implements State
 	private void selectOption(States sm) {
 		if (currentOption == 0) {
 			LevelManager.start();
-			sm.setState("LEVEL00");
+			States.setState("LEVEL00");
 		}
 		if (currentOption == 1) {
-			sm.setState("MENU");
+			States.setState("MENU");
 		}
 	}
 
