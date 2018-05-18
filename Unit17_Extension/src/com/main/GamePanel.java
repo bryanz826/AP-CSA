@@ -10,25 +10,17 @@ import java.awt.Canvas;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
+import com.state.Play;
 import com.state.States;
-import com.state.levels.LevelManager;
 import com.text.Text;
 import com.utils.Keys;
 import com.utils.Reference;
 
-/**
- * 
- * @author bryan
- *
- */
 public class GamePanel extends Canvas implements Runnable
 {
-	/**
-	 * Serial Version UID,
-	 */
 	private static final long serialVersionUID = 3586563203899816171L;
 
-	public static final boolean	DEBUGGING	= false;
+	public static final boolean	DEBUGGING	= true;
 
 	private static final int	FRAME_CAP	= 60;
 	private static final int	TARGET_UPS	= 60;
@@ -46,8 +38,8 @@ public class GamePanel extends Canvas implements Runnable
 
 	private void init() {
 		showFPS = true;
-		running = true;
 		pause = false;
+		running = true;
 	}
 
 	private void processInput() {
@@ -56,7 +48,7 @@ public class GamePanel extends Canvas implements Runnable
 	}
 
 	private void update() {
-		if (!SpaceVenture.getFrame().isFocused() && States.getCurrentState() instanceof LevelManager) setPause(true);
+		if (!SpaceVenture.getFrame().isFocused() && States.getCurrentState() instanceof Play) setPause(true);
 		if (!pause) {
 			States.update();
 		}
@@ -75,10 +67,10 @@ public class GamePanel extends Canvas implements Runnable
 					g = (Graphics2D) bs.getDrawGraphics();
 
 					States.render(g);
-					if (showFPS) new Text("FPS: " + FPS, Reference.WIDTH - 157, 114, 0.35).drawString(g);
+					if (showFPS) new Text("FPS: " + FPS, Reference.WIDTH - 157, 114, 0.35f).drawString(g);
 					if (pause) {
 						new Text("PAUSED", Reference.CENTER_X - 282, Reference.CENTER_Y - 150, 2).drawString(g);
-						new Text("PRESS 'ESC' TO CONTINUE", 250, Reference.CENTER_Y + 50, 0.77).drawString(g);
+						new Text("PRESS 'ESC' TO CONTINUE", 250, Reference.CENTER_Y + 50, 0.77f).drawString(g);
 					}
 
 				} finally {

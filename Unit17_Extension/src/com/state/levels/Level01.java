@@ -1,129 +1,133 @@
 package com.state.levels;
 
+import com.state.Play;
 import com.state.State;
 import com.state.States;
 import com.utils.Reference;
 import com.utils.Resource;
 
-public class Level01 extends LevelManager implements State
+public class Level01 extends Play implements State
 {
 	@Override
 	public void init() {
 		bg = new Resource(Reference.LEVEL_LOC + "level01.jpg");
 	}
-	
+
 	@Override
-	public void update(States sm) {
+	public void exit() {}
 
-		if (wave == 0) {
-			if (tick <= 30) ship.ddy(-0.5);
-			else if (tick <= 40) ship.slowPosY(0.25);
+	@Override
+	public void update() {
+		if (getWave() == 0) {
+			if (getTick() <= 30) em.getShip().accelNegY();
+			else if (getTick() <= 40) em.getShip().decelNegY();
 			else {
-				tick = 0;
-				wave++;
+				setTick(0);
+				incWave();
 			}
-		} else if (wave == 1) {
-			if (tick >= 100) {
-				if (tick <= 180) {
-					horde.addSimple(Reference.WIDTH + 50, 200, tick, 20, 4626);
-					horde.addSimple(-50, 300, tick, 20, 2646);
+		} else if (getWave() == 1) {
+			if (getTick() >= 100) {
+				if (getTick() <= 180) {
+					em.getHorde().addSimple(Reference.WIDTH + 50, 200, getTick(), 20, 4626);
+					em.getHorde().addSimple(-50, 300, getTick(), 20, 2646);
 				}
 
-				horde.moveHordeSmoothly(186, "LEFT", 0.25, 4626); // 5
-				horde.moveHordeSmoothly(185, "RIGHT", 0.25, 2646); // 5
+				em.getHorde().moveHordeSmoothly(186, "LEFT", null, 4626); // 5
+				em.getHorde().moveHordeSmoothly(185, "RIGHT", null, 2646); // 5
 
-				if (horde.checkForTypeMissing("SIMPLE")) {
-					tick = 0;
-					wave++;
-				}
-			}
-		} else if (wave == 2) {
-			if (tick >= 100) {
-				if (tick == 105) horde.addSimple(300, -50, 1);
-				if (tick == 110) horde.addSimple(254, -50, 1);
-				if (tick == 118) horde.addSimple(1000, -50, 1);
-				if (tick == 116) horde.addSimple(800, -50, 1);
-				if (tick == 118) horde.addSimple(100, -50, 1);
-				if (tick == 120) horde.addSimple(670, -50, 1);
-				if (tick == 120) horde.addSimple(570, -50, 1);
-				if (tick == 108) horde.addSimple(820, -50, 1);
-				if (tick == 130) horde.addSimple(438, -50, 1);
-				if (tick == 131) horde.addSimple(1220, -50, 1); // 10
-
-				horde.swivelHorde(200, 0.25, 1);
-
-				if (horde.checkForTypeMissing("SIMPLE") && tick >= 131) {
-					tick = 0;
-					wave++;
+				if (em.getHorde().checkForType("SIMPLE")) {
+					setTick(0);
+					incWave();
 				}
 			}
+		} else if (getWave() == 2) {
+			if (getTick() >= 100) {
+				if (getTick() == 105) em.getHorde().addSimple(300, -50, 1);
+				if (getTick() == 110) em.getHorde().addSimple(254, -50, 1);
+				if (getTick() == 118) em.getHorde().addSimple(1000, -50, 1);
+				if (getTick() == 116) em.getHorde().addSimple(800, -50, 1);
+				if (getTick() == 118) em.getHorde().addSimple(100, -50, 1);
+				if (getTick() == 120) em.getHorde().addSimple(670, -50, 1);
+				if (getTick() == 120) em.getHorde().addSimple(570, -50, 1);
+				if (getTick() == 108) em.getHorde().addSimple(820, -50, 1);
+				if (getTick() == 130) em.getHorde().addSimple(438, -50, 1);
+				if (getTick() == 131) em.getHorde().addSimple(1220, -50, 1); // 10
 
-		} else if (wave == 3) {
-			if (tick >= 100) {
-				if (tick <= 175) {
-					horde.addSimple(Reference.WIDTH + 50, 100, tick, 25, 7525);
-					horde.addSimple(-50, 200, tick, 25, 752752);
-					horde.addSimple(Reference.WIDTH + 50, 300, tick, 25, 7525);
-					horde.addSimple(-50, 400, tick, 25, 752752);
-				}
+				em.getHorde().swivelHorde(200, 1);
 
-				if (tick <= 300) {
-					horde.moveHordeSmoothly(175, "LEFT", 0.25, 7525); // 5
-					horde.moveHordeSmoothly(175, "RIGHT", 0.25, 752752); // 5
-				}
-
-				if (horde.checkForTypeMissing("SIMPLE")) {
-					tick = 0;
-					wave++;
-				}
-			}
-		} else if (wave == 4) {
-			if (tick >= 100) {
-				if (tick <= 180) {
-					horde.addSimple(Reference.WIDTH + 50, 250, tick, 20, 321);
-					horde.addSimple(-50, 250, tick, 20, 216);
-				} else if (tick <= 260) {
-					horde.addSimple(Reference.WIDTH + 50, 420, tick, 20, 78);
-					horde.addSimple(-50, 420, tick, 20, 7789);
-				}
-
-				horde.diagonalHorde(300, "LEFT", "DOWN", 321);
-				horde.diagonalHorde(300, "RIGHT", "DOWN", 216);
-				horde.diagonalHorde(300, "LEFT", "UP", 78);
-				horde.diagonalHorde(300, "RIGHT", "UP", 7789); // 8
-
-				if (horde.checkForTypeMissing("SIMPLE")) {
-					tick = 0;
-					wave++;
+				if (em.getHorde().checkForType("SIMPLE") && getTick() >= 131) {
+					setTick(0);
+					incWave();
 				}
 			}
 
-		} else if (wave == 5) {
-			if (tick >= 100) {
-				if (tick <= 180) {
-					horde.addSimple(Reference.WIDTH / 4, -50, tick, 20, 3243);
-					horde.addSimple(Reference.WIDTH / 2, -50, tick, 20, 3243);
-					horde.addSimple(Reference.WIDTH * 3 / 4, -50, tick, 20, 3243); // 15
+		} else if (getWave() == 3) {
+			if (getTick() >= 100) {
+				if (getTick() <= 175) {
+					em.getHorde().addSimple(Reference.WIDTH + 50, 100, getTick(), 25, 7525);
+					em.getHorde().addSimple(-50, 200, getTick(), 25, 752752);
+					em.getHorde().addSimple(Reference.WIDTH + 50, 300, getTick(), 25, 7525);
+					em.getHorde().addSimple(-50, 400, getTick(), 25, 752752);
 				}
 
-				horde.moveHordeSmoothly(100, "DOWN", 0.25, 3243);
+				if (getTick() <= 300) {
+					em.getHorde().moveHordeSmoothly(175, "LEFT", null, 7525); // 5
+					em.getHorde().moveHordeSmoothly(175, "RIGHT", null, 752752); // 5
+				}
 
-				if (horde.checkForTypeMissing("SIMPLE")) {
-					tick = 0;
-					wave++;
+				if (em.getHorde().checkForType("SIMPLE")) {
+					setTick(0);
+					incWave();
 				}
 			}
-		} else if (wave == 6) {
-			if (++tick == 100) ship.setPass(true);
+		} else if (getWave() == 4) {
+			if (getTick() >= 100) {
+				if (getTick() <= 180) {
+					em.getHorde().addSimple(Reference.WIDTH + 50, 250, getTick(), 20, 321);
+					em.getHorde().addSimple(-50, 250, getTick(), 20, 216);
+				} else if (getTick() <= 260) {
+					em.getHorde().addSimple(Reference.WIDTH + 50, 420, getTick(), 20, 78);
+					em.getHorde().addSimple(-50, 420, getTick(), 20, 7789);
+				}
+
+				em.getHorde().diagonalHorde(300, "LEFT", "DOWN", 321);
+				em.getHorde().diagonalHorde(300, "RIGHT", "DOWN", 216);
+				em.getHorde().diagonalHorde(300, "LEFT", "UP", 78);
+				em.getHorde().diagonalHorde(300, "RIGHT", "UP", 7789); // 8
+
+				if (em.getHorde().checkForType("SIMPLE")) {
+					setTick(0);
+					incWave();
+				}
+			}
+
+		} else if (getWave() == 5) {
+			if (getTick() >= 100) {
+				if (getTick() <= 180) {
+					em.getHorde().addSimple(Reference.WIDTH / 4, -50, getTick(), 20, 3243);
+					em.getHorde().addSimple(Reference.WIDTH / 2, -50, getTick(), 20, 3243);
+					em.getHorde().addSimple(Reference.WIDTH * 3 / 4, -50, getTick(), 20, 3243); // 15
+				}
+
+				em.getHorde().moveHordeSmoothly(100, null, "DOWN", 3243);
+
+				if (!em.getHorde().checkForType("SIMPLE")) {
+					setTick(0);
+					incWave();
+				}
+			}
+		} else if (getWave() == 6) {
+			incTick();
+			if (getTick() == 100) em.getShip().setAllowedToPass(true);
 		}
 
-		if (ship.getY() < 0) {
-			ship.setPass(false);
-			sm.setState("LEVEL02");
-			ship.setY(Reference.HEIGHT);
+		if (em.getShip().getY() < 0) {
+			em.getShip().setAllowedToPass(false);
+			States.setState("LEVEL02");
+			em.getShip().setY(Reference.HEIGHT);
 		}
 
-		super.update(sm);
+		super.update();
 
 	}
 
@@ -131,5 +135,4 @@ public class Level01 extends LevelManager implements State
 	public String getName() {
 		return "LEVEL01";
 	}
-
 }

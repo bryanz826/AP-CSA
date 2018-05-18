@@ -2,19 +2,20 @@ package com.state.levels;
 
 import java.awt.Graphics2D;
 
+import com.state.Play;
 import com.state.State;
+import com.state.States;
 import com.text.Text;
 import com.utils.Reference;
-import com.utils.Resource;
 
-public class Level00 extends LevelManager implements State
+public class Level00 extends Play implements State
 {
 	private boolean	pickItUp;
 	private boolean	goThru;
 
 	@Override
 	public void init() {
-		bg = new Resource(Reference.LEVEL_LOC + "level00.jpg");
+		setBg("level00.jpg");
 	}
 
 	@Override
@@ -25,64 +26,59 @@ public class Level00 extends LevelManager implements State
 	}
 
 	@Override
-	public void exit() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void processInput() {
-		super.processInput();
-	}
+	public void exit() {}
 
 	@Override
 	public void update() {
-		if (wave == 0) {
-			if (tick == 50) {
-				powerups.addBulletUp(Reference.CENTER_X, Reference.CENTER_Y - 100);
-			} else if (tick > 50) {
-				if (powerups.getPowerups().size() == 0) {
-					if (bulletLevel == 1) {
-						tick = 0;
-						wave++;
+		if (getWave() == 0) {
+			if (getTick() == 50) {
+				em.getShip().getPowerups().addBulletUp(Reference.CENTER_X, Reference.CENTER_Y - 100);
+			} else if (getTick() > 50) {
+				if (em.getShip().getPowerups().getList().size() == 0) {
+					if (em.getShip().getMagazine().getBulletLevel() == 1) {
+						setTick(0);
+						incWave();
 					} else {
-						powerups.addBulletUp(Reference.CENTER_X, Reference.CENTER_Y - 100);
+						em.getShip().getPowerups().addBulletUp(Reference.CENTER_X, Reference.CENTER_Y - 100);
 						pickItUp = true;
 					}
 				}
 			}
-		} else if (wave == 1) {
-			pickItUp = false;
-			if (tick <= 120) {
-				horde.addTutorial(Reference.WIDTH + 50, 100, tick, 30, 1654);
-				horde.addTutorial(-50, 100, tick, 30, 14894);
+		} else if (getWave() == 1) {
+			if (getTick() <= 120) {
+				pickItUp = false;
+				em.getHorde().addTutorial(Reference.WIDTH + 50, 100, getTick(), 30, 1654);
+				em.getHorde().addTutorial(-50, 100, getTick(), 30, 14894);
 			}
 
-			if (tick <= 350) {
-				horde.curveHordeWeirdly(800, "LEFT", "DOWN", 1654);
-				horde.curveHordeWeirdly(800, "RIGHT", "DOWN", 14894);
-			} else if (tick <= 600) {
-				horde.slowDownHorde("LEFT", "DOWN", 1654);
-				horde.slowDownHorde("RIGHT", "DOWN", 14894);
+			if (getTick() <= 350) {
+				em.getHorde().curveHordeWeirdly(800, "LEFT", "DOWN", 1654);
+				em.getHorde().curveHordeWeirdly(800, "RIGHT", "DOWN", 14894);
+			} else if (getTick() <= 600) {
+				em.getHorde().slowDownHorde("LEFT", "DOWN", 1654);
+				em.getHorde().slowDownHorde("RIGHT", "DOWN", 14894);
+			} else {
+				em.getHorde().doNothing();
 			}
 
-			if (tick >= 40) {
-				if (horde.checkForTypeMissing("TUTORIAL")) {
-					tick = 0;
-					wave++;
+			if (getTick() >= 40) {
+				if (!em.getHorde().checkForType("TUTORIAL")) {
+					setTick(0);
+					incWave();
 				}
 			}
-		} else if (wave == 2) {
-			if (++tick == 100) {
-				ship.setPass(true);
+		} else if (getWave() == 2) {
+			incTick();
+			if (getTick() == 100) {
+				em.getShip().setAllowedToPass(true);
 				goThru = true;
 			}
 		}
 
-		if (ship.getY() < 0) {
-			ship.setPass(false);
+		if (em.getShip().getY() < 0) {
+			em.getShip().setAllowedToPass(false);
 			States.setState("LEVEL01");
-			ship.setY(Reference.HEIGHT);
+			em.getShip().setY(Reference.HEIGHT);
 		}
 
 		super.update();
@@ -90,9 +86,10 @@ public class Level00 extends LevelManager implements State
 
 	@Override
 	public void render(Graphics2D g) {
-		super.render(g);
+		bg.render(g, 0, 0, Reference.WIDTH, Reference.HEIGHT);
 		if (pickItUp) new Text("PICK IT UP", Reference.CENTER_X - 250, Reference.CENTER_Y - 200).drawString(g);
-		if (goThru) new Text("ENTER THE PORTAL TO THE NEXT LEVEL", 80, Reference.CENTER_Y - 175, 0.7).drawString(g);
+		if (goThru) new Text("ENTER THE PORTAL TO THE NEXT LEVEL", 80, Reference.CENTER_Y - 175, 0.7f).drawString(g);
+		em.render(g);
 	}
 
 	@Override

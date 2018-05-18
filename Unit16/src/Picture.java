@@ -157,11 +157,9 @@ public class Picture extends SimplePicture
 		Pixel[][] toPixels = this.getPixels2D();
 		Pixel[][] fromPixels = fromPic.getPixels2D();
 		for (int fromRow = 0, toRow = startRow; fromRow < fromPixels.length
-				&& toRow < toPixels.length; fromRow++, toRow++)
-		{
+				&& toRow < toPixels.length; fromRow++, toRow++) {
 			for (int fromCol = 0, toCol = startCol; fromCol < fromPixels[0].length
-					&& toCol < toPixels[0].length; fromCol++, toCol++)
-			{
+					&& toCol < toPixels[0].length; fromCol++, toCol++) {
 				fromPixel = fromPixels[fromRow][fromCol];
 				toPixel = toPixels[toRow][toCol];
 				toPixel.setColor(fromPixel.getColor());
@@ -359,8 +357,7 @@ public class Picture extends SimplePicture
 			for (int col = 0; col < pixels[0].length; col++) {
 				if ((Math.abs(pixels[row][col].getRed() - color.getRed()) < allowance)
 						&& (Math.abs(pixels[row][col].getGreen() - color.getGreen()) < allowance)
-						&& (Math.abs(pixels[row][col].getBlue() - color.getBlue()) < allowance))
-				{
+						&& (Math.abs(pixels[row][col].getBlue() - color.getBlue()) < allowance)) {
 					pixels[row][col].setColor(newPixels[row][col].getColor());
 				}
 			}
@@ -440,7 +437,6 @@ public class Picture extends SimplePicture
 		Pixel[][] pixels = this.getPixels2D();
 		for (int row = y; row < h; row++) {
 			for (int col = x; col < w; col++) {
-				System.out.println(row + ", " + col);
 				Pixel currPixel = pixels[row][col];
 				Pixel newPixel = pixels[row - 1][col - 1];
 
@@ -458,20 +454,4 @@ public class Picture extends SimplePicture
 			}
 		}
 	}
-
-	public void transparenify() {
-		Pixel[][] pixels = this.getPixels2D();
-		for (Pixel[] rowArray : pixels) {
-			for (Pixel pixelObj : rowArray) {
-				int i = 30;
-				if (pixelObj.getRed() < i && pixelObj.getBlue() < i && pixelObj.getGreen() < i) {
-					pixelObj.setRed(255 - pixelObj.getRed());
-					pixelObj.setBlue(255 - pixelObj.getBlue());
-					pixelObj.setGreen(255 - pixelObj.getGreen());
-					pixelObj.setAlpha((pixelObj.getRed() + pixelObj.getBlue() + pixelObj.getGreen()) / 3);
-				}
-			}
-		}
-	}
-
 } // this is the end of class Picture, put all new methods before this

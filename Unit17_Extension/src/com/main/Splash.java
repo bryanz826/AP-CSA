@@ -15,6 +15,8 @@ import com.state.GameOver;
 import com.state.Menu;
 import com.state.States;
 import com.state.TestState;
+import com.state.levels.Level00;
+import com.state.levels.Level01;
 import com.utils.Reference;
 import com.utils.Resource;
 
@@ -93,8 +95,8 @@ public class Splash
 		add("icon.png");
 
 		States.addState(new Menu());
-//		States.addState(new Level00());
-//		States.addState(new Level01());
+		States.addState(new Level00());
+		States.addState(new Level01());
 //		States.addState(new Level02());
 //		States.addState(new Level03());
 //		States.addState(new Level04());

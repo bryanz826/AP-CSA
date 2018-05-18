@@ -15,31 +15,33 @@ public class Paddle extends Entity implements Playable
 
 	@Override
 	public void processInput() {
-		if (Keys.isDown(Keys.LEFT)) {
-			accelNegX();
-		} else if (Keys.isUp(Keys.LEFT)) {
-			decelNegX();
-		}
+		if (Keys.checkMultiDirectionalMovement()) {
+			if (Keys.isDown(Keys.LEFT)) accelNegX(getD2x() * 0.7071);
+			else if (Keys.isUp(Keys.LEFT)) decelNegX(getD2x() * 0.7071);
 
-		if (Keys.isDown(Keys.RIGHT)) {
-			accelPosX();
-		} else if (Keys.isUp(Keys.RIGHT)) {
-			decelPosX();
-		}
+			if (Keys.isDown(Keys.RIGHT)) accelPosX(getD2x() * 0.7071);
+			else if (Keys.isUp(Keys.RIGHT)) decelPosX(getD2x() * 0.7071);
 
-		if (Keys.isDown(Keys.UP)) {
-			accelNegY();
-		} else if (Keys.isUp(Keys.UP)) {
-			decelNegY();
-		}
+			if (Keys.isDown(Keys.UP)) accelNegY(getD2y() * 0.7071);
+			else if (Keys.isUp(Keys.UP)) decelNegY(getD2y() * 0.7071);
 
-		if (Keys.isDown(Keys.DOWN)) {
-			accelPosY();
-		} else if (Keys.isUp(Keys.DOWN)) {
-			decelPosY();
+			if (Keys.isDown(Keys.DOWN)) accelPosY(getD2y() * 0.7071);
+			else if (Keys.isUp(Keys.DOWN)) decelPosY(getD2y() * 0.7071);
+		} else {
+			if (Keys.isDown(Keys.LEFT)) accelNegX();
+			else if (Keys.isUp(Keys.LEFT)) decelNegX();
+
+			if (Keys.isDown(Keys.RIGHT)) accelPosX();
+			else if (Keys.isUp(Keys.RIGHT)) decelPosX();
+
+			if (Keys.isDown(Keys.UP)) accelNegY();
+			else if (Keys.isUp(Keys.UP)) decelNegY();
+
+			if (Keys.isDown(Keys.DOWN)) accelPosY();
+			else if (Keys.isUp(Keys.DOWN)) decelPosY();
 		}
 	}
-	
+
 	@Override
 	public void render(Graphics2D g) {
 		g.setColor(new Color(192, 192, 192));

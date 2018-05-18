@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import com.text.Dialogue;
-import com.utils.Loopable;
 import com.utils.Reference;
 
 public class TestState implements State

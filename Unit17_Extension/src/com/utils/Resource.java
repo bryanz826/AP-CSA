@@ -48,16 +48,28 @@ public class Resource
 		this.image = res.getImage().getSubimage(x * width - width, y * height - height, width, height);
 	}
 
-	public void render(Graphics2D g, double x, double y) {
+	public void render(Graphics2D g, float x, float y) {
 		g.drawImage(image, (int) x, (int) y, null);
 	}
 
-	public void render(Graphics2D g, double x, double y, double width, double height) {
+	public void render(Graphics2D g, float x, float y, float width, float height) {
 		g.drawImage(image, (int) x, (int) y, (int) width, (int) height, null);
+	}
+	
+	public void setImage(BufferedImage image) {
+		this.image = image;
 	}
 
 	public BufferedImage getImage() {
 		return image;
+	}
+	
+	public float getWidth() {
+		return image.getWidth();
+	}
+	
+	public float getHeight() {
+		return image.getHeight();
 	}
 
 	public String getFileName() {

@@ -3,7 +3,6 @@ package com.state;
 import java.awt.Graphics2D;
 
 import com.main.GamePanel;
-import com.state.levels.LevelManager;
 import com.text.Text;
 import com.utils.Keys;
 import com.utils.Reference;
@@ -16,7 +15,7 @@ public class Menu implements State
 	private Resource	selectLeft;
 	private Resource	selectRight;
 
-//	private ModelShip	ship;
+//	private ModelShip	ship; // 35 53
 //	private ModelAlien	alien;
 
 	private int			currentOption	= 0;
@@ -28,8 +27,8 @@ public class Menu implements State
 	private boolean		anim4;
 
 	private boolean		alienBullet;
-	private double		bulletX;
-	private double		bulletY;
+	private float		bulletX;
+	private float		bulletY;
 
 	@Override
 	public void init() {
@@ -81,9 +80,9 @@ public class Menu implements State
 		title.render(g, Reference.CENTER_X - 385, 240);
 
 		// draw buttons
-		new Text(options[0], Reference.CENTER_X - 110, Reference.CENTER_Y + 50, 0.85).drawString(g);
-		new Text(options[1], Reference.CENTER_X - 93, Reference.CENTER_Y + 150, 0.85).drawString(g);
-		new Text(options[2], Reference.WIDTH - 350, Reference.HEIGHT - 100, 0.53).drawString(g);
+		new Text(options[0], Reference.CENTER_X - 110, Reference.CENTER_Y + 50, 0.85f).drawString(g);
+		new Text(options[1], Reference.CENTER_X - 93, Reference.CENTER_Y + 150, 0.85f).drawString(g);
+		new Text(options[2], Reference.WIDTH - 350, Reference.HEIGHT - 100, 0.53f).drawString(g);
 
 		// draw selection
 		if (currentOption == 0) {
@@ -269,8 +268,8 @@ public class Menu implements State
 
 	private void selectOption() {
 		if (currentOption == 0) {
-			LevelManager.start();
-			States.setState("TESTSTATE");
+			Play.start();
+			States.setState("LEVEL00");
 		}
 		if (currentOption == 1) {
 			GamePanel.setRunning(false);

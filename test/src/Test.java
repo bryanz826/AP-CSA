@@ -1,20 +1,10 @@
 public class Test {
-	
-	private static boolean noob = false;
-	
 	public static void main(String[] args) {
-		AnotherTest at = new AnotherTest();
-		at.nigerian(noob);
-		System.out.println(noob);
-		/**
-		 * passed by value idiot
-		 */
+		int i = 1223;
+		System.out.println(i / 10 * 10);
 	}
 }
 
 class AnotherTest {
 	
-	public void nigerian(boolean noob) {
-		noob = true;
-	}
 }

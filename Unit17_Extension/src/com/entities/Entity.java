@@ -1,50 +1,50 @@
 package com.entities;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
+import com.animations.DynamicAnimation;
 import com.utils.Loopable;
 import com.utils.Reference;
-import com.utils.Resource;
 
 public class Entity implements Loopable
 {
-	private double		x;
-	private double		y;
-	private double		width;
-	private double		height;
-	private double		dx;
-	private double		dy;
-	private double		terminalDx;
-	private double		terminalDy;
-	private double		d2x;
-	private double		d2y;
+	private float			x;
+	private float			y;
+	private float			width;
+	private float			height;
+	private float			dx;
+	private float			dy;
+	private float			terminalDx;
+	private float			terminalDy;
+	private float			d2x;
+	private float			d2y;
 
-	private Resource	image;
+	private DynamicAnimation	anim;
 
 	public Entity()
 	{
-		this(Reference.CENTER_X, Reference.CENTER_Y, 25, 25, "");
+		this(Reference.CENTER_X, Reference.CENTER_Y, 25, 25, new DynamicAnimation());
 	}
 
-	public Entity(double x, double y, double width, double height, String fileName)
+	public Entity(float x, float y, float width, float height, DynamicAnimation anim)
 	{
-		this(x, y, width, height, 5, 5, fileName);
+		this(x, y, width, height, 5, 5, anim);
 	}
 
-	public Entity(double x, double y, double width, double height, double terminalDx, double terminalDy,
-			String fileName)
+	public Entity(float x, float y, float width, float height, float terminalDx, float terminalDy, DynamicAnimation anim)
 	{
-		this(x, y, width, height, terminalDx, terminalDy, 0, 0, fileName);
+		this(x, y, width, height, terminalDx, terminalDy, 0.2f, 0.2f, anim);
 	}
 
-	public Entity(double x, double y, double width, double height, double terminalDx, double terminalDy, double d2x,
-			double d2y, String fileName)
+	public Entity(float x, float y, float width, float height, float terminalDx, float terminalDy, float d2x, float d2y,
+			DynamicAnimation anim)
 	{
 		setPosition(x, y);
 		setDimensions(width, height);
 		setTerminalVelocities(terminalDx, terminalDy);
 		setAccelerations(d2x, d2y);
-		setImage(fileName);
+		this.anim = anim;
 	}
 
 	public void accelPosX() {
@@ -63,7 +63,7 @@ public class Entity implements Loopable
 		setDx(getDx() - getD2x());
 		if (getDx() <= -getTerminalDx()) setDx(-getTerminalDx());
 	}
-	
+
 	public void decelNegX() {
 		if (getDx() < 0) {
 			setDx(getDx() + getD2x());
@@ -87,7 +87,7 @@ public class Entity implements Loopable
 		setDy(getDy() - getD2y());
 		if (getDy() <= -getTerminalDy()) setDy(-getTerminalDy());
 	}
-	
+
 	public void decelNegY() {
 		if (getDy() < 0) {
 			setDy(getDy() + getD2y());
@@ -99,125 +99,126 @@ public class Entity implements Loopable
 	public void update() {
 		setX(getX() + getDx());
 		setY(getY() + getDy());
+		anim.update();
 	}
 
 	@Override
 	public void render(Graphics2D g) {
-		image.render(g, getX(), (int) getY(), (int) getWidth(), (int) getHeight());
-		getBounds().DEBUG(g);
+		anim.render(g, getX(), getY(), getWidth(), getHeight());
+		for (Bounds bounds : getBounds())
+			bounds.DEBUG(g);
 	}
 
-	public void setPosition(double x, double y) {
+	public void setPosition(float x, float y) {
 		setX(x);
 		setY(y);
 	}
 
-	public void setX(double x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 
-	public void setY(double y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 
-	public void setDimensions(double width, double height) {
+	public void setDimensions(float width, float height) {
 		setWidth(width);
 		setHeight(height);
 	}
 
-	public void setWidth(double width) {
+	public void setWidth(float width) {
 		this.width = width;
 	}
 
-	public void setHeight(double height) {
+	public void setHeight(float height) {
 		this.height = height;
 	}
 
-	public void setDx(double dx) {
+	public void setDx(float dx) {
 		this.dx = dx;
 	}
 
-	public void setDy(double dy) {
+	public void setDy(float dy) {
 		this.dy = dy;
 	}
 
-	public void setTerminalVelocities(double terminalDx, double terminalDy) {
+	public void setTerminalVelocities(float terminalDx, float terminalDy) {
 		setTerminalDx(terminalDx);
 		setTerminalDy(terminalDy);
 	}
 
-	public void setTerminalDx(double terminalDx) {
+	public void setTerminalDx(float terminalDx) {
 		this.terminalDx = terminalDx;
 	}
 
-	public void setTerminalDy(double terminalDy) {
+	public void setTerminalDy(float terminalDy) {
 		this.terminalDy = terminalDy;
 	}
 
-	public void setAccelerations(double d2x, double d2y) {
+	public void setAccelerations(float d2x, float d2y) {
 		setD2x(d2x);
 		setD2y(d2y);
 	}
 
-	public void setD2x(double d2x) {
+	public void setD2x(float d2x) {
 		this.d2x = d2x;
 	}
 
-	public void setD2y(double d2y) {
+	public void setD2y(float d2y) {
 		this.d2y = d2y;
 	}
 
-	public void setImage(String fileName) {
-		this.image = new Resource(fileName);
-	}
-
-	public double getX() {
+	public float getX() {
 		return x;
 	}
 
-	public double getY() {
+	public float getY() {
 		return y;
 	}
 
-	public double getWidth() {
+	public float getWidth() {
 		return width;
 	}
 
-	public double getHeight() {
+	public float getHeight() {
 		return height;
 	}
 
-	public double getDx() {
+	public float getDx() {
 		return dx;
 	}
 
-	public double getDy() {
+	public float getDy() {
 		return dy;
 	}
 
-	public double getD2x() {
+	public float getD2x() {
 		return d2x;
 	}
 
-	public double getTerminalDx() {
+	public float getTerminalDx() {
 		return terminalDx;
 	}
 
-	public double getTerminalDy() {
+	public float getTerminalDy() {
 		return terminalDy;
 	}
 
-	public double getD2y() {
+	public float getD2y() {
 		return d2y;
 	}
 
-	public Bounds getBounds() {
-		return new Bounds(getX() + getWidth() / 2, getY() + getHeight() / 2, getWidth());
+	public ArrayList<Bounds> getBounds() {
+		ArrayList<Bounds> list = new ArrayList<Bounds>();
+		list.add(new Bounds(getX(), getY(), getWidth()));
+		return list;
 	}
 
 	@Override
 	public String toString() {
 		return "Entity [x=" + x + ", y" + y + ", width=" + width + ", height=" + height + ", dx=" + dx + ", dy=" + dy
-				+ ", terminalDx=" + terminalDx + ", terminalDy=" + terminalDy + ", d2x=" + d2x + ", d2y=" + d2y + "]";
+				+ ", terminalDx=" + terminalDx + ", terminalDy=" + terminalDy + ", d2x=" + d2x + ", d2y=" + d2y
+				+ ", boundsCount=" + getBounds().size() + "]";
 	}
 }

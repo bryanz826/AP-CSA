@@ -77,7 +77,7 @@ public class PictureTester {
 //		testClearBlueOverValue(200);
 //		testGetAverageForColumn(0);
 //		testSharpen(50, 50, 500, 400);
-		testTransparenify();
+		
 	}
 
 	public static void testKeepOnlyBlue() {
@@ -204,12 +204,5 @@ public class PictureTester {
 	     redMoto.explore();
 	     redMoto.sharpen(x,y,w,h);
 	     redMoto.explore();
-	}
-	
-	public static void testTransparenify() {
-		Picture laser = new Picture("laser.jpg");
-		laser.explore();
-		laser.transparenify();
-		laser.explore();
 	}
 }

@@ -3,13 +3,9 @@ package com.utils;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import com.main.GamePanel;
-import com.state.States;
-import com.state.levels.LevelManager;
-
 public class Keys extends KeyAdapter
 {
-	public static final int	NUM_KEYS		= 7;
+	public static final int	NUM_KEYS		= 11;
 
 	public static boolean	keyState[]		= new boolean[NUM_KEYS];
 	public static boolean	prevKeyState[]	= new boolean[NUM_KEYS];
@@ -18,15 +14,23 @@ public class Keys extends KeyAdapter
 	public static int		RIGHT			= 1;
 	public static int		UP				= 2;
 	public static int		DOWN			= 3;
-	public static int		ENTER			= 4;
-	public static int		ESCAPE			= 5;
-	public static int 		R			= 6;
+	public static int		W				= 4;
+	public static int		A				= 5;
+	public static int		S				= 6;
+	public static int		D				= 7;
+	public static int		R				= 8;
+	public static int		ENTER			= 9;
+	public static int		ESCAPE			= 10;
 
 	public static void keySet(int code, boolean b) {
 		if (KeyEvent.VK_LEFT == code) keyState[LEFT] = b;
 		else if (KeyEvent.VK_RIGHT == code) keyState[RIGHT] = b;
 		else if (KeyEvent.VK_UP == code) keyState[UP] = b;
 		else if (KeyEvent.VK_DOWN == code) keyState[DOWN] = b;
+		else if (KeyEvent.VK_W == code) keyState[W] = b;
+		else if (KeyEvent.VK_A == code) keyState[A] = b;
+		else if (KeyEvent.VK_S == code) keyState[S] = b;
+		else if (KeyEvent.VK_D == code) keyState[D] = b;
 		else if (KeyEvent.VK_ENTER == code) keyState[ENTER] = b;
 		else if (KeyEvent.VK_ESCAPE == code) keyState[ESCAPE] = b;
 		else if (KeyEvent.VK_R == code) keyState[R] = b;
@@ -41,7 +45,7 @@ public class Keys extends KeyAdapter
 	public static boolean isDown(int i) {
 		return keyState[i];
 	}
-	
+
 	public static boolean isUp(int i) {
 		return !keyState[i];
 	}
@@ -71,10 +75,6 @@ public class Keys extends KeyAdapter
 	// key events
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) System.exit(0);
-		if (e.getKeyCode() == KeyEvent.VK_ESCAPE && States.getCurrentState() instanceof LevelManager) {
-			if (GamePanel.getPause()) GamePanel.setPause(false);
-			else GamePanel.setPause(true);
-		}
 		Keys.keySet(e.getKeyCode(), true);
 	}
 

@@ -1,25 +1,27 @@
 package com.entities;
 
-import com.utils.Reference;
+import com.animations.DynamicAnimation;
 
 public abstract class Living extends Entity
 {
 	private int hp;
 	private int initialHp;
 
-	public Living(double x, double y, double terminal_dx, double terminal_dy, double d2x, double d2y, int hp,
-			String fileName)
+	public Living(float x, float y, float terminalDx, float terminalDy, float d2x, float d2y, int hp,
+			DynamicAnimation anim)
 	{
-		this(x, y, 25, 25, terminal_dx, terminal_dy, d2x, d2y, hp, fileName);
+		this(x, y, 25, 25, terminalDx, terminalDy, d2x, d2y, hp, anim);
 	}
 
-	public Living(double x, double y, double width, double height, double terminal_dx, double terminal_dy, double d2x,
-			double d2y, int hp, String fileName)
+	public Living(float x, float y, float width, float height, float terminalDx, float terminalDy, float d2x,
+			float d2y, int hp, DynamicAnimation anim)
 	{
-		super(x, y, width, height, terminal_dx, terminal_dy, fileName);
+		super(x, y, width, height, terminalDx, terminalDy, d2x, d2y, anim);
 		setHp(hp);
 		initialHp = hp;
 	}
+	
+	public abstract void actionOnDeath();
 	
 	public void heal(int hp) {
 		this.hp += hp;
@@ -38,12 +40,19 @@ public abstract class Living extends Entity
 		this.hp = hp;
 	}
 	
+	public void incHp(int hp) {
+		this.hp += hp;
+	}
+	
+	public void decHp(int hp) {
+		this.hp -= hp;
+	}
+	
 	public int getHp() {
 		return hp;
 	}
 	
-	@Override
-	public void setImage(String fileName) {
-		super.setImage(Reference.ENTITY_LOC + fileName);
+	public int getInitialHp() {
+		return initialHp;
 	}
 }

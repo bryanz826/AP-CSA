@@ -13,11 +13,11 @@ import com.main.GamePanel;
  */
 public class Bounds
 {
-	private double	x;
-	private double	y;
-	private double	radius;
+	private float	x;
+	private float	y;
+	private float	radius;
 
-	public Bounds(double x, double y, double size)
+	public Bounds(float x, float y, float size)
 	{
 		this.x = x;
 		this.y = y;
@@ -25,9 +25,9 @@ public class Bounds
 	}
 
 	public boolean collides(Bounds c) {
-		double xDis = this.getX() + this.getRadius() - c.getX() - c.getRadius();
-		double yDis = this.getY() + this.getRadius() - c.getY() - c.getRadius();
-		double radDis = this.getRadius() + c.getRadius();
+		float xDis = this.getX() + this.getRadius() - c.getX() - c.getRadius();
+		float yDis = this.getY() + this.getRadius() - c.getY() - c.getRadius();
+		float radDis = this.getRadius() + c.getRadius();
 		return xDis * xDis + yDis * yDis <= radDis * radDis;
 	}
 
@@ -38,15 +38,15 @@ public class Bounds
 		}
 	}
 
-	public double getX() {
+	public float getX() {
 		return x;
 	}
 
-	public double getY() {
+	public float getY() {
 		return y;
 	}
 
-	public double getRadius() {
+	public float getRadius() {
 		return radius;
 	}
 }

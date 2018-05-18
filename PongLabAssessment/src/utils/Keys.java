@@ -1,4 +1,5 @@
 package utils;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -15,7 +16,7 @@ public class Keys extends KeyAdapter
 	public static int		DOWN			= 3;
 	public static int		ENTER			= 4;
 	public static int		ESCAPE			= 5;
-	public static int 		R				= 6;
+	public static int		R				= 6;
 
 	public static void keySet(int code, boolean b) {
 		if (KeyEvent.VK_LEFT == code) keyState[LEFT] = b;
@@ -61,6 +62,19 @@ public class Keys extends KeyAdapter
 			if (keyState[i]) return true;
 		}
 		return false;
+	}
+
+	public static boolean checkMultiDirectionalMovement() {
+		int hcount = 0;
+		int vcount = 0;
+		
+		if (Keys.isDown(Keys.LEFT)) hcount++;
+		if (Keys.isDown(Keys.RIGHT)) hcount++;
+
+		if (Keys.isDown(Keys.UP)) vcount++;
+		if (Keys.isDown(Keys.DOWN)) vcount++;
+		
+		return hcount == 1 && vcount == 1;
 	}
 
 	// key events

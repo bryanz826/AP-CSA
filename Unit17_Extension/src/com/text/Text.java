@@ -18,15 +18,15 @@ public class Text
 	private String					str;
 	private int						index;
 	private boolean					writingLine;
-	private double					x, y;
-	private double					newWidth, newHeight;
+	private float					x, y;
+	private float					newWidth, newHeight;
 
-	public Text(String str, double x, double y)
+	public Text(String str, float x, float y)
 	{
 		this(str, x, y, 1);
 	}
 
-	public Text(String str, double x, double y, double ratio)
+	public Text(String str, float x, float y, float ratio)
 	{
 		characters = new Resource(Reference.FONT_LOC + "live_retro_gray_50x61.png");
 		this.str = str.toUpperCase();
