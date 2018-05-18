@@ -382,8 +382,8 @@ public class Picture extends SimplePicture
 				} else {
 					currPixel.setGreen(currPixel.getGreen() / 10 * 10 + nearestPrime(colorDifferenceOnesDigit));
 				}
-
-				if (messagePixel.colorDistance(new Color(0, 0, 0)) < 50) {
+				
+				if (messagePixel.colorDistance(new Color(0, 0, 0)) < 420) {
 					if (isPrime(colorDifferenceOnesDigit)) {
 						currPixel.setBlue(currPixel.getBlue() / 10 * 10 + nearestPrime(colorDifferenceOnesDigit));
 					} else {
