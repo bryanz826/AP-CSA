@@ -77,7 +77,8 @@ public class PictureTester {
 //		testClearBlueOverValue(200);
 //		testGetAverageForColumn(0);
 //		testSharpen(50, 50, 500, 400);
-		testEncodeAndDecode();
+		testEncodeAndDecode("apple_icon.jpg");
+		testEncodeAndDecode("msg.jpg");
 	}
 
 	public static void testKeepOnlyBlue() {
@@ -164,12 +165,12 @@ public class PictureTester {
 		cat.explore();		
 	}
 	
-	public static void testEncodeAndDecode() {
+	public static void testEncodeAndDecode(String fileName) {
 		Picture beach = new Picture("beach.jpg");
 		beach.explore();
-		Picture result = beach.encodeAndDecode("apple_icon.jpg");
-		beach.explore();
-		result.explore();
+		Picture encodedPicture = beach.encode(fileName);
+		encodedPicture.explore();
+		encodedPicture.decode().explore();
 	}
 
 	public static void testGetCountRedOverValue(int n) {

@@ -48,49 +48,85 @@ public class Entity implements Loopable
 	}
 
 	public void accelPosX() {
-		setDx(getDx() + getD2x());
-		if (getDx() >= getTerminalDx()) setDx(getTerminalDx());
+		accelPosX(getD2x());
+	}
+	
+	public void accelPosX(float d2x) {
+		setDx(getDx() + d2x);
+		float ratio = d2x / getD2x();
+		if (getDx() >= getTerminalDx() * ratio) setDx(getTerminalDx() * ratio);
 	}
 
 	public void decelPosX() {
+		decelPosX(getD2x());
+	}
+	
+	public void decelPosX(float d2x) {
 		if (getDx() > 0) {
-			setDx(getDx() - getD2x());
+			setDx(getDx() - d2x);
 			if (getDx() <= 0) setDx(0);
 		}
 	}
-
+	
 	public void accelNegX() {
-		setDx(getDx() - getD2x());
-		if (getDx() <= -getTerminalDx()) setDx(-getTerminalDx());
+		accelNegX(getD2x());
 	}
 
+	public void accelNegX(float d2x) {
+		setDx(getDx() - d2x);
+		float ratio = d2x / getD2x();
+		if (getDx() <= -getTerminalDx() * ratio) setDx(-getTerminalDx() * ratio);
+	}
+	
 	public void decelNegX() {
+		decelNegX(getD2x());
+	}
+
+	public void decelNegX(float d2x) {
 		if (getDx() < 0) {
-			setDx(getDx() + getD2x());
+			setDx(getDx() + d2x);
 			if (getDx() >= 0) setDx(0);
 		}
 	}
-
+	
 	public void accelPosY() {
-		setDy(getDy() + getD2y());
-		if (getDy() >= getTerminalDy()) setDy(getTerminalDy());
+		accelPosY(getD2y());
 	}
 
+	public void accelPosY(float d2y) {
+		setDy(getDy() + d2y);
+		float ratio = d2y / getD2y();
+		if (getDy() >= getTerminalDy() * ratio) setDy(getTerminalDy() * ratio);
+	}
+	
 	public void decelPosY() {
+		decelPosY(getD2y());
+	}
+
+	public void decelPosY(float d2y) {
 		if (getDy() > 0) {
-			setDy(getDy() - getD2y());
+			setDy(getDy() - d2y);
 			if (getDy() <= 0) setDy(0);
 		}
 	}
-
+	
 	public void accelNegY() {
-		setDy(getDy() - getD2y());
-		if (getDy() <= -getTerminalDy()) setDy(-getTerminalDy());
+		accelNegY(getD2y());
 	}
 
+	public void accelNegY(float d2y) {
+		setDy(getDy() - d2y);
+		float ratio = d2y / getD2y();
+		if (getDy() <= -getTerminalDy() * ratio) setDy(-getTerminalDy() * ratio);
+	}
+	
 	public void decelNegY() {
+		decelNegY(getD2y());
+	}
+
+	public void decelNegY(float d2y) {
 		if (getDy() < 0) {
-			setDy(getDy() + getD2y());
+			setDy(getDy() + d2y);
 			if (getDy() >= 0) setDy(0);
 		}
 	}

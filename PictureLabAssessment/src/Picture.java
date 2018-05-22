@@ -364,7 +364,7 @@ public class Picture extends SimplePicture
 		}
 	}
 
-	public Picture encodeAndDecode(String fileName) {
+	public Picture encode(String fileName) {
 		long elapsed = System.currentTimeMillis();
 		Picture messagePic = new Picture(fileName);
 		Pixel[][] currPixels = this.getPixels2D();
@@ -376,36 +376,45 @@ public class Picture extends SimplePicture
 				currPixel = currPixels[row][col];
 				messagePixel = messagePixels[row][col];
 
-				int colorDifferenceOnesDigit = Math.abs(currPixel.getRed()) % 10;
-				if (isPrime(colorDifferenceOnesDigit)) {
-					currPixel.setBlue(currPixel.getBlue() / 10 * 10 + nearestComposite(colorDifferenceOnesDigit));
+				int key = getFirstDigit(currPixel.getRed());
+				if (isPrimeDigit(key)) {
+					currPixel.setBlue(
+							nearestCompositeDigitWithout9(currPixel.getBlue() % 10) + currPixel.getBlue() / 10 * 10);
 				} else {
-					currPixel.setGreen(currPixel.getGreen() / 10 * 10 + nearestPrime(colorDifferenceOnesDigit));
+					currPixel.setGreen(
+							nearestPrimeDigitWith9(currPixel.getGreen() % 10) + currPixel.getGreen() / 10 * 10);
 				}
-				
-				if (messagePixel.colorDistance(new Color(0, 0, 0)) < 420) {
-					if (isPrime(colorDifferenceOnesDigit)) {
-						currPixel.setBlue(currPixel.getBlue() / 10 * 10 + nearestPrime(colorDifferenceOnesDigit));
+
+				if (messagePixel.colorDistance(new Color(0, 0, 0)) < 300) {
+					if (isPrimeDigit(key)) {
+						currPixel.setBlue(
+								nearestPrimeDigitWith9(currPixel.getBlue() % 10) + currPixel.getBlue() / 10 * 10);
 					} else {
-						currPixel.setGreen(currPixel.getGreen() / 10 * 10 + nearestComposite(colorDifferenceOnesDigit));
+						currPixel.setGreen(nearestCompositeDigitWithout9(currPixel.getGreen() % 10)
+								+ currPixel.getGreen() / 10 * 10);
 					}
 				}
 			}
 		}
 		System.out.println("Encode complete. Time taken: " + (System.currentTimeMillis() - elapsed) + "ms");
-		elapsed = System.currentTimeMillis();
+		return this;
+	}
 
+	public Picture decode() {
+		long elapsed = System.currentTimeMillis();
 		Picture message = new Picture(this.getWidth(), this.getHeight());
-		currPixels = this.getPixels2D();
-		messagePixels = message.getPixels2D();
+		Pixel[][] currPixels = this.getPixels2D();
+		Pixel[][] messagePixels = message.getPixels2D();
+		Pixel currPixel = null;
+		Pixel messagePixel = null;
 		for (int row = 0; row < this.getHeight(); row++) {
 			for (int col = 0; col < this.getWidth(); col++) {
 				currPixel = currPixels[row][col];
 				messagePixel = messagePixels[row][col];
 
-				int key = Math.abs(currPixel.getRed()) % 10;
-				if (isPrime(currPixel.getBlue() % 10) && isPrime(key)
-						|| !isPrime(currPixel.getGreen() % 10) && !isPrime(key)) {
+				int key = getFirstDigit(currPixel.getRed());
+				if (isPrimeDigitPlus9(currPixel.getBlue() % 10) && isPrimeDigit(key)
+						|| !isPrimeDigitPlus9(currPixel.getGreen() % 10) && !isPrimeDigit(key)) {
 					messagePixel.setColor(new Color(0, 0, 0));
 				}
 			}
@@ -413,28 +422,64 @@ public class Picture extends SimplePicture
 		System.out.println("Decode complete. Time taken: " + (System.currentTimeMillis() - elapsed) + "ms");
 		return message;
 	}
-
-	public boolean isPrime(int number) {
-		for (int i = 2; i < number / 2; i++) {
-			if (number % i == 0) return true;
-		}
-		return false;
-	}
-
-	public int nearestComposite(int number) {
-		int i = 0;
-		while (isPrime(number)) {
-			number += Math.pow(-1, i) * i++;
+	
+	public int getFirstDigit(int number) {
+		while (number > 10) {
+			number /= 10;
 		}
 		return number;
 	}
+	
+	public boolean isPrimeDigit(int digit) {
+		return digit == 2 || digit == 3 || digit == 5 || digit == 7;
+	}
 
-	public int nearestPrime(int number) {
-		int i = 0;
-		while (!isPrime(number)) {
-			number += Math.pow(-1, i) * i++;
+	public boolean isPrimeDigitPlus9(int digit) {
+		return digit == 2 || digit == 3 || digit == 5 || digit == 7 || digit == 9;
+	}
+
+	public int nearestCompositeDigitWithout9(int digit) {
+		if (digit == 2) {
+			return 1;
 		}
-		return number;
+		if (digit == 3) {
+			return 4;
+		}
+		if (digit == 5) {
+			if (Math.random() < 0.5) return 4;
+			return 6;
+		}
+		if (digit == 7) {
+			if (Math.random() < 0.5) return 6;
+			return 8;
+		}
+		if (digit == 9) {
+			if (Math.random() < 0.5) return 8;
+			return 10;
+		}
+		return digit;
+	}
+
+	public int nearestPrimeDigitWith9(int digit) {
+		if (digit == 0) {
+			return -1;
+		}
+		if (digit == 1) {
+			return 2;
+		}
+		if (digit == 4) {
+			if (Math.random() < 0.5) return 3;
+			return 5;
+		}
+		if (digit == 6) {
+			if (Math.random() < 0.5) return 5;
+			return 7;
+		}
+		if (digit == 8) {
+			if (Math.random() < 0.5) return 7;
+			return 9;
+		}
+		return digit;
 	}
 
 	public int getCountRedOverValue(int n) {

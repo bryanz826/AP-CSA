@@ -28,33 +28,11 @@ public abstract class Projectile extends Entity
 	public abstract void actionOnLanding();
 
 	@Override
-	public void update() { // TODO may or may not
-//		System.out.println(getDy() + " " + getTerminalDy());
-		System.out.println(getTerminalDy());
+	public void update() {
 		accelNegY();
-//		if (radians == 0) { owo nani? desu owo 
-//			accelNegY();
-//		} else if (radians < Math.PI / 2) {
-//			accelPosX();
-//			accelNegY();
-//		} else if (radians == Math.PI / 2) {
-//			accelPosX();
-//		} else if (radians < Math.PI) {
-//			accelPosX();
-//			accelPosY();
-//		} else if (radians == Math.PI) {
-//			accelPosY();
-//		} else if (radians < Math.PI * 3 / 2) {
-//			accelNegX();
-//			accelPosY();
-//		} else if (radians == Math.PI * 3 / 2) {
-//			accelNegY();
-//		} else {
-//			accelNegX();
-//			accelNegY();
-//		}
+		
 		setX((float) (getX() + getDx() /** Math.sin(radians)*/));
-		setY((float) (getY() - getDy() /** Math.cos(radians)*/));
+		setY((float) (getY() + getDy() /** Math.cos(radians)*/));
 	}
 
 	public void setDamage(int damage) {

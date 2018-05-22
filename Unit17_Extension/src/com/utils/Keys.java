@@ -72,6 +72,19 @@ public class Keys extends KeyAdapter
 		return false;
 	}
 
+	public static boolean checkMultiDirectionalMovement() {
+		int hcount = 0;
+		int vcount = 0;
+		
+		if (Keys.isDown(Keys.LEFT) || Keys.isDown(Keys.A)) hcount++;
+		if (Keys.isDown(Keys.RIGHT) || Keys.isDown(Keys.D)) hcount++;
+
+		if (Keys.isDown(Keys.UP) || Keys.isDown(Keys.W)) vcount++;
+		if (Keys.isDown(Keys.DOWN) || Keys.isDown(Keys.S)) vcount++;
+		
+		return hcount == 1 && vcount == 1;
+	}
+
 	// key events
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) System.exit(0);

@@ -100,6 +100,7 @@ public class GamePanel extends Canvas implements Runnable
 				frameCount++;
 				frameDuration = 0;
 			}
+			
 			if (System.currentTimeMillis() - 1000 > timer) {
 				timer += 1000;
 				FPS = frameCount;

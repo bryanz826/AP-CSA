@@ -41,28 +41,30 @@ public class Player extends Living
 
 	public void processInput() {
 		if (!isDead()) {
-			if (Keys.isDown(Keys.LEFT) || Keys.isDown(Keys.A)) {
-				accelNegX();
-			} else if (Keys.isUp(Keys.LEFT) || Keys.isDown(Keys.A)) {
-				decelNegX();
-			}
+			if (Keys.checkMultiDirectionalMovement()) {
+				if (Keys.isDown(Keys.LEFT) || Keys.isDown(Keys.A)) accelNegX(getD2x() * 0.7071f);
+				else if (Keys.isUp(Keys.LEFT) || Keys.isUp(Keys.A)) decelNegX(getD2x() * 0.7071f);
 
-			if (Keys.isDown(Keys.RIGHT) || Keys.isDown(Keys.D)) {
-				accelPosX();
-			} else if (Keys.isUp(Keys.RIGHT) || Keys.isDown(Keys.D)) {
-				decelPosX();
-			}
+				if (Keys.isDown(Keys.RIGHT) || Keys.isDown(Keys.D)) accelPosX(getD2x() * 0.7071f);
+				else if (Keys.isUp(Keys.RIGHT) || Keys.isUp(Keys.D)) decelPosX(getD2x() * 0.7071f);
 
-			if (Keys.isDown(Keys.UP) || Keys.isDown(Keys.W)) {
-				accelNegY();
-			} else if (Keys.isUp(Keys.UP) || Keys.isDown(Keys.W)) {
-				decelNegY();
-			}
+				if (Keys.isDown(Keys.UP) || Keys.isDown(Keys.W)) accelNegY(getD2y() * 0.7071f);
+				else if (Keys.isUp(Keys.UP) || Keys.isUp(Keys.W)) decelNegY(getD2y() * 0.7071f);
 
-			if (Keys.isDown(Keys.DOWN) || Keys.isDown(Keys.S)) {
-				accelPosY();
-			} else if (Keys.isUp(Keys.DOWN) || Keys.isDown(Keys.S)) {
-				decelPosY();
+				if (Keys.isDown(Keys.DOWN) || Keys.isDown(Keys.S)) accelPosY(getD2y() * 0.7071f);
+				else if (Keys.isUp(Keys.DOWN) || Keys.isUp(Keys.S)) decelPosY(getD2y() * 0.7071f);
+			} else {
+				if (Keys.isDown(Keys.LEFT) || Keys.isDown(Keys.A)) accelNegX();
+				else if (Keys.isUp(Keys.LEFT) || Keys.isUp(Keys.A)) decelNegX();
+
+				if (Keys.isDown(Keys.RIGHT) || Keys.isDown(Keys.D)) accelPosX();
+				else if (Keys.isUp(Keys.RIGHT) || Keys.isUp(Keys.D)) decelPosX();
+
+				if (Keys.isDown(Keys.UP) || Keys.isDown(Keys.W)) accelNegY();
+				else if (Keys.isUp(Keys.UP) || Keys.isUp(Keys.W)) decelNegY();
+
+				if (Keys.isDown(Keys.DOWN) || Keys.isDown(Keys.S)) accelPosY();
+				else if (Keys.isUp(Keys.DOWN) || Keys.isUp(Keys.S)) decelPosY();
 			}
 
 			if (Keys.isDown(Keys.R) && magazine.getLaserCount() > 0) {

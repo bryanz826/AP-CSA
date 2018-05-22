@@ -13,9 +13,10 @@ public class Bullet extends Ammo
 		super(x, y, 27, 27, 40, 40, 40, 40, 2, angdeg, new DynamicAnimation((float) Math.toRadians(angdeg), 1,
 				new Resource(Reference.BULLET_LOC + "bullet.png")));
 	}
-	
+
 	@Override
 	public void actionOnLanding() {
-		StaticAnimations.pinkHit(getX(), getY(), getWidth(), getHeight());
+		StaticAnimations.pinkHit(getX() + getWidth() / 2 - getWidth() / 4, getY() + getWidth() / 2 - getWidth() / 4,
+				getWidth() / 2, getHeight() / 2);
 	}
 }
