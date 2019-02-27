@@ -10,9 +10,10 @@ import com.utils.Resource;
 
 public abstract class Play
 {
+	protected static EntityManager	em;
+	
 	private static int				timer;
 	private static int				score;
-	protected static EntityManager	em;
 
 	private int						tick;
 	private int						wave;
